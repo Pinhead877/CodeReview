@@ -23,7 +23,7 @@
             name="Code Review View"
             icon="icons/sample.gif"
             category="CodeReview"
-            class="codereview.views.CreatorScreen"
+            class="codereview.views.MainScreen"
             id="codereview.views.SampleView">
       </view>
    </extension>
