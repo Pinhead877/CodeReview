@@ -55,6 +55,7 @@ public class MainScreen extends ViewPart {
 	private ReviwerScreen reviwerMode;
 	private ScoreScreen scoreScreen;
 	private CreatorScreen creatorScreen;
+	private SendReviewScreen sendReviewScreen;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -63,15 +64,20 @@ public class MainScreen extends ViewPart {
 		parent.setBackground(SWTResourceManager.getColor(240, 240, 240));
 		
 		reviwerMode = new ReviwerScreen(parent, SWT.NONE);
-		reviwerMode.setBounds(0, 210, 527, 273);
+		reviwerMode.setBounds(0, 210, 263, 476);
 		reviwerMode.setVisible(false);
 		
 		scoreScreen = new ScoreScreen(parent, SWT.NONE, this);
 		scoreScreen.setBounds(0, 0, 594, 203);
+		scoreScreen.setVisible(true);
 		
 		creatorScreen = new CreatorScreen(parent, SWT.NONE);
 		creatorScreen.setBounds(0, 210, 527, 273);
+		creatorScreen.setVisible(false);
 		
+		sendReviewScreen = new SendReviewScreen(parent, SWT.NONE);
+		sendReviewScreen.setBounds(0, 210, 463, 476);
+		sendReviewScreen.setVisible(true);
 		
 	}
 	
