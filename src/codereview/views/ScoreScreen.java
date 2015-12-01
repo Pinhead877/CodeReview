@@ -51,28 +51,6 @@ public class ScoreScreen extends CR_Composite {
 		MyScore.setText("My Score:");
 		MyScore.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.NORMAL));
 		MyScore.setBounds(10, 95, 156, 30);
-		
-		Button modeToggle = new Button(this, SWT.NONE);
-		modeToggle.setToolTipText("Click here to change mode");
-		modeToggle.setImage(SWTResourceManager.getImage(MainScreen.class, "/codereview/assets/creator.jpg"));
-		modeToggle.setBounds(37, 167, 176, 36);
-		modeToggle.addListener(SWT.Selection, new Listener() {
-			
-			@Override
-			public void handleEvent(Event event) {
-				if(event.type == SWT.Selection){
-					if(main.getCreatorScreen().isVisible()){
-						main.getCreatorScreen().setVisible(false);
-						main.getReviwerMode().setVisible(true);
-						modeToggle.setImage(SWTResourceManager.getImage(MainScreen.class, "/codereview/assets/reviewer.png"));
-					}else{
-						main.getCreatorScreen().setVisible(true);
-						main.getReviwerMode().setVisible(false);
-						modeToggle.setImage(SWTResourceManager.getImage(MainScreen.class, "/codereview/assets/creator.jpg"));
-					}
-				}
-			}
-		});
 	}
 
 	@Override
