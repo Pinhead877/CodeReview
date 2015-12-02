@@ -17,7 +17,7 @@ public class ScoreScreen extends CR_Composite {
 	 * @param parent
 	 * @param style
 	 */
-	public ScoreScreen(Composite parent, int style, MainScreen main) {
+	public ScoreScreen(Composite parent, int style) {
 		super(parent, style);
 		
 		Label playerPicLabel = new Label(this, SWT.NONE);

@@ -9,11 +9,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class MainMenu extends CR_Composite{
 	private Text text;
 
-	public MainMenu(Composite parent, int style, MainScreen main) {
+	public MainMenu(Composite parent, int style) {
 		super(parent, style);
 		
 		Label MainMenuLabel = new Label(this, SWT.NONE);
@@ -23,11 +25,13 @@ public class MainMenu extends CR_Composite{
 		MainMenuLabel.setText("Main Menu");
 		
 		Button CreatorModeBtn = new Button(this, SWT.NONE);
+		CreatorModeBtn.addSelectionListener(MainScreen.GoToCreatorScreen);
 		CreatorModeBtn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		CreatorModeBtn.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/creator.jpg"));
 		CreatorModeBtn.setBounds(32, 56, 173, 41);
 		
 		Button ReviewerModeBtn = new Button(this, SWT.NONE);
+		ReviewerModeBtn.addSelectionListener(MainScreen.GoToReviwerScreen);
 		ReviewerModeBtn.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/reviewer.png"));
 		ReviewerModeBtn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		ReviewerModeBtn.setBounds(32, 116, 173, 41);

@@ -9,6 +9,9 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class ReviwerScreen extends CR_Composite {
 
@@ -23,11 +26,22 @@ public class ReviwerScreen extends CR_Composite {
 		Label lblNewLabel = new Label(this, SWT.BORDER);
 		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 		lblNewLabel.setAlignment(SWT.CENTER);
-		lblNewLabel.setBounds(10, 0, 226, 30);
+		lblNewLabel.setBounds(10, 10, 194, 30);
 		lblNewLabel.setText("Segment Review");
 		
 		StarRating starRating = new StarRating(this, SWT.NONE);
-		starRating.setBounds(12, 67, 226, 42);
+		starRating.setBounds(12, 208, 226, 42);
+		
+		Button backBtn = new Button(this, SWT.NONE);
+		backBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.mainMenu.setVisible(true);
+			}
+		});
+		backBtn.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/back.png"));
+		backBtn.setBounds(210, 13, 25, 25);
 
 	}
 
