@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Player;
 import codereview.viewsoverride.CR_Composite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -21,7 +22,7 @@ public class CreatorScreen extends CR_Composite {
 	
 	private Text searchTextBox;
 
-	public CreatorScreen(Composite parent, int style) {
+	public CreatorScreen(Composite parent, int style, Player player) {
 		super(parent, style);
 		setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		
@@ -60,7 +61,7 @@ public class CreatorScreen extends CR_Composite {
 		
 		Button searchButton = new Button(this, SWT.NONE);
 		searchButton.setImage(SWTResourceManager.getImage(MainScreen.class, "/codereview/assets/search.png"));
-		searchButton.setBounds(206, 260, 30, 30);
+		searchButton.setBounds(206, 286, 30, 30);
 		
 		Label ReviewsIWroteNum = new Label(this, SWT.NONE);
 		ReviewsIWroteNum.setText("47");
@@ -82,7 +83,7 @@ public class CreatorScreen extends CR_Composite {
 		searchTextBox = new Text(this, SWT.BORDER);
 		searchTextBox.setToolTipText("Search...");
 		searchTextBox.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
-		searchTextBox.setBounds(10, 260, 190, 30);
+		searchTextBox.setBounds(10, 286, 190, 30);
 		
 		Label ReviewsWatingLabel = new Label(this, SWT.NONE);
 		ReviewsWatingLabel.setText("3");
@@ -101,11 +102,23 @@ public class CreatorScreen extends CR_Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setVisible(false);
-				MainScreen.mainMenu.setVisible(true);
+				MainScreen.initializeMainMenu();
 			}
 		});
 		backBtn.setImage(SWTResourceManager.getImage(CreatorScreen.class, "/codereview/assets/back.png"));
 		backBtn.setBounds(211, 13, 25, 25);
+		
+		Button askForAReviewBtn = new Button(this, SWT.NONE);
+		askForAReviewBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.scoreScreen.setVisible(false);
+				MainScreen.initializeSendReviewScreen();
+			}
+		});
+		askForAReviewBtn.setBounds(10, 244, 100, 30);
+		askForAReviewBtn.setText("Ask For a Review");
 		
 	}
 

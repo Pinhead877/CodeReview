@@ -1,61 +1,127 @@
 package codereview.views;
 
-import org.eclipse.swt.widgets.Composite;
-
-import codereview.viewsoverride.CR_Composite;
-import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class SendReviewScreen extends CR_Composite {
-	private Text text;
-	private Text text_1;
+import classes.Player;
+import classes.Points;
+import codereview.viewsoverride.CR_Composite;
 
-	public SendReviewScreen(Composite parent, int style) {
+public class SendReviewScreen extends CR_Composite {
+	private Text codeTextInput;
+	private Text commentsTextInput;
+
+	public SendReviewScreen(Composite parent, int style, Player player) {
 		super(parent, style);
 		
-		ScrolledComposite scrolledComposite = new ScrolledComposite(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		scrolledComposite.setBounds(10, 68, 226, 163);
-		scrolledComposite.setExpandHorizontal(true);
-		scrolledComposite.setExpandVertical(true);
+		ScrolledComposite CodeScrolledComposite = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL);
+		CodeScrolledComposite.setBounds(10, 68, 226, 163);
+		CodeScrolledComposite.setExpandHorizontal(true);
+		CodeScrolledComposite.setExpandVertical(true);
 		
-		text = new Text(scrolledComposite, SWT.BORDER);
-		scrolledComposite.setContent(text);
-		scrolledComposite.setMinSize(text.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		codeTextInput = new Text(CodeScrolledComposite, SWT.WRAP | SWT.MULTI);
+		CodeScrolledComposite.setContent(codeTextInput);
+		CodeScrolledComposite.setMinSize(codeTextInput.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
-		ScrolledComposite scrolledComposite_1 = new ScrolledComposite(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		scrolledComposite_1.setBounds(10, 296, 226, 85);
-		scrolledComposite_1.setExpandHorizontal(true);
-		scrolledComposite_1.setExpandVertical(true);
+		ScrolledComposite CommentScrolledComposite = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL);
+		CommentScrolledComposite.setBounds(10, 296, 226, 85);
+		CommentScrolledComposite.setExpandHorizontal(true);
+		CommentScrolledComposite.setExpandVertical(true);
 		
-		text_1 = new Text(scrolledComposite_1, SWT.BORDER);
-		scrolledComposite_1.setContent(text_1);
-		scrolledComposite_1.setMinSize(text_1.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		commentsTextInput = new Text(CommentScrolledComposite, SWT.WRAP);
+		CommentScrolledComposite.setContent(commentsTextInput);
+		CommentScrolledComposite.setMinSize(commentsTextInput.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
-		Button btnNewButton = new Button(this, SWT.NONE);
-		btnNewButton.setBounds(161, 237, 75, 25);
-		btnNewButton.setText("Copy Code");
+		Button CopyCodeBtn = new Button(this, SWT.NONE);
+		CopyCodeBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String textFromEditor = getSelectedText();
+				codeTextInput.setText(textFromEditor);
+			}
+		});
+		CopyCodeBtn.setBounds(161, 237, 75, 25);
+		CopyCodeBtn.setText("Copy Code");
 		
-		Button btnBeReviewed = new Button(this, SWT.NONE);
-		btnBeReviewed.setBounds(147, 387, 89, 25);
-		btnBeReviewed.setText("Be Reviewed");
+		Button SendSegmentBtn = new Button(this, SWT.NONE);
+		SendSegmentBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				codeTextInput.setText("");
+				commentsTextInput.setText("");
+				player.addPoints(Points.POINTS_FOR_CREATING_NEW_REVIEW);
+			}
+		});
+		SendSegmentBtn.setBounds(147, 387, 89, 25);
+		SendSegmentBtn.setText("Be Reviewed");
 		
-		Label lblNewLabel = new Label(this, SWT.BORDER);
-		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
-		lblNewLabel.setAlignment(SWT.CENTER);
-		lblNewLabel.setBounds(10, 10, 140, 30);
-		lblNewLabel.setText("Ask For A Review");
+		Label LogoLabal = new Label(this, SWT.BORDER);
+		LogoLabal.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
+		LogoLabal.setAlignment(SWT.CENTER);
+		LogoLabal.setBounds(10, 10, 140, 30);
+		LogoLabal.setText("Ask For A Review");
 		
-		Label lblTheCode = new Label(this, SWT.NONE);
-		lblTheCode.setBounds(10, 46, 66, 15);
-		lblTheCode.setText("The Code:");
+		Label TheCodeLbl = new Label(this, SWT.NONE);
+		TheCodeLbl.setBounds(10, 46, 66, 15);
+		TheCodeLbl.setText("The Code:");
 		
-		Button btnNewButton_1 = new Button(this, SWT.NONE);
-		btnNewButton_1.setImage(SWTResourceManager.getImage(SendReviewScreen.class, "/codereview/assets/back.png"));
-		btnNewButton_1.setBounds(204, 10, 25, 25);
-		// TODO Auto-generated constructor stub
+		Button backBtn = new Button(this, SWT.NONE);
+		backBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.initializeScoreScreen();
+				MainScreen.initializeCreatorScreen();
+			}
+		});
+		backBtn.setImage(SWTResourceManager.getImage(SendReviewScreen.class, "/codereview/assets/back.png"));
+		backBtn.setBounds(204, 10, 25, 25);
+		
+		Label commentsLbl = new Label(this, SWT.NONE);
+		commentsLbl.setBounds(10, 275, 66, 15);
+		commentsLbl.setText("Comments:");
+
+	}
+	
+	public String getSelectedText(){
+		ITextEditor ite = getActiveTextEditor();
+		ITextSelection sel = getSelection(ite);
+		return sel.getText()==""? "NO TEXT SELECTED":sel.getText();
+	}
+
+	public String getEditorContent(){
+		ITextEditor ite = getActiveTextEditor();
+		if(ite == null) return "No Editor Open!";
+
+		IDocument doc = ite.getDocumentProvider().getDocument(ite.getEditorInput());
+		if (doc == null) return "No Editor Open!";
+		return doc.get();
+	}
+
+	protected ITextEditor getActiveTextEditor() {
+		final IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if (!(activeEditor instanceof ITextEditor)){
+			return null;
+		}
+		ITextEditor ite = (ITextEditor)activeEditor;
+		return ite;
+	}
+
+	public ITextSelection getSelection(ITextEditor textEditor) { 
+		ISelectionProvider sp = textEditor.getSelectionProvider(); 
+		return sp==null ? null : (ITextSelection) sp.getSelection(); 
 	}
 }

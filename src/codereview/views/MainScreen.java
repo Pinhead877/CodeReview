@@ -11,23 +11,15 @@
 package codereview.views;
 
 
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.ui.part.*;
-import org.eclipse.jface.viewers.*;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.jface.action.*;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.*;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.part.ViewPart;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Text;
+
+import classes.Player;
+import classes.Team;
 
 
 /**
@@ -53,52 +45,63 @@ public class MainScreen extends ViewPart {
 		
 	}
 	
-	public static ReviwerScreen reviwerMode;
+	public static ReviwerScreen reviwerScreen;
 	public static CreatorScreen creatorScreen;
 	public static ScoreScreen scoreScreen;
-	public static MainMenu mainMenu;
+	public static MainMenu mainMenuScreen;
+	public static SendReviewScreen sendReviewScreen;
+	
+	public static Composite mainScreen;
+	
+	private static Team team;
+	private static Player player;
+	
 
 	@Override
 	public void createPartControl(Composite parent) {
-		parent.setLayout(null);
 		
+		mainScreen = parent;
+		
+		player = new Player("Alex");
+		team = new Team("Power Rangers");
+		team.addNewTeamMember(player);
+		
+		parent.setLayout(null);
 		parent.setBackground(SWTResourceManager.getColor(240, 240, 240));
 		
-		scoreScreen = new ScoreScreen(parent, SWT.NONE);
-		scoreScreen.setBounds(0, 0, 594, 167);
-		scoreScreen.setVisible(true);
-		
-		mainMenu = new MainMenu(parent, SWT.NONE);
-		mainMenu.setBounds(0, 169, 236, 368);
-		mainMenu.setVisible(true);
-		
-		creatorScreen = new CreatorScreen(parent, SWT.NONE);
-		creatorScreen.setVisible(false);
-		creatorScreen.setBounds(0, 169, 236, 368);
-		
-		reviwerMode = new ReviwerScreen(parent, SWT.NONE);
-		reviwerMode.setVisible(false);
-		reviwerMode.setBounds(0, 169, 236, 368);
-		
+		initializeScoreScreen();
+		initializeMainMenu();
 	}
 
-	public static SelectionAdapter GoToCreatorScreen = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			mainMenu.setVisible(false);
-			creatorScreen.setVisible(true);
-		}
-	};
-	
-	public static SelectionAdapter GoToReviwerScreen = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			mainMenu.setVisible(false);
-			reviwerMode.setVisible(true);
-		}
-	};
-	
-	
+	public static void initializeSendReviewScreen() {
+		sendReviewScreen = new SendReviewScreen(mainScreen, SWT.NONE, player);
+		sendReviewScreen.setBounds(0, 0, 236, 540);
+		sendReviewScreen.setVisible(true);
+	}
+
+	public static void initializeReviewerScreen() {
+		reviwerScreen = new ReviwerScreen(mainScreen, SWT.NONE, player);
+		reviwerScreen.setVisible(true);
+		reviwerScreen.setBounds(0, 169, 236, 368);
+	}
+
+	public static void initializeCreatorScreen() {
+		creatorScreen = new CreatorScreen(mainScreen, SWT.NONE, player);
+		creatorScreen.setVisible(true);
+		creatorScreen.setBounds(0, 169, 236, 368);
+	}
+
+	public static void initializeMainMenu() {
+		mainMenuScreen = new MainMenu(mainScreen, SWT.NONE, player);
+		mainMenuScreen.setBounds(0, 169, 236, 368);
+		mainMenuScreen.setVisible(true);
+	}
+
+	public static void initializeScoreScreen() {
+		scoreScreen = new ScoreScreen(mainScreen, SWT.NONE, player);
+		scoreScreen.setBounds(0, 0, 594, 167);
+		scoreScreen.setVisible(true);
+	}
 
 	@Override
 	public void setFocus() {

@@ -1,21 +1,22 @@
 package codereview.views;
 
-import org.eclipse.swt.widgets.Composite;
-
-import codereview.viewsoverride.CR_Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.wb.swt.SWTResourceManager;
+
+import classes.Player;
+import codereview.viewsoverride.CR_Composite;
 
 public class MainMenu extends CR_Composite{
 	private Text text;
 
-	public MainMenu(Composite parent, int style) {
+	public MainMenu(Composite parent, int style, Player player) {
 		super(parent, style);
 		
 		Label MainMenuLabel = new Label(this, SWT.NONE);
@@ -25,13 +26,25 @@ public class MainMenu extends CR_Composite{
 		MainMenuLabel.setText("Main Menu");
 		
 		Button CreatorModeBtn = new Button(this, SWT.NONE);
-		CreatorModeBtn.addSelectionListener(MainScreen.GoToCreatorScreen);
+		CreatorModeBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.initializeCreatorScreen();
+			}
+		});
 		CreatorModeBtn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		CreatorModeBtn.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/creator.jpg"));
 		CreatorModeBtn.setBounds(32, 56, 173, 41);
 		
 		Button ReviewerModeBtn = new Button(this, SWT.NONE);
-		ReviewerModeBtn.addSelectionListener(MainScreen.GoToReviwerScreen);
+		ReviewerModeBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.initializeReviewerScreen();
+			}
+		});
 		ReviewerModeBtn.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/reviewer.png"));
 		ReviewerModeBtn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		ReviewerModeBtn.setBounds(32, 116, 173, 41);

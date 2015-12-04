@@ -1,13 +1,11 @@
 package codereview.views;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Player;
 import codereview.viewsoverride.CR_Composite;
 
 public class ScoreScreen extends CR_Composite {
@@ -17,7 +15,7 @@ public class ScoreScreen extends CR_Composite {
 	 * @param parent
 	 * @param style
 	 */
-	public ScoreScreen(Composite parent, int style) {
+	public ScoreScreen(Composite parent, int style, Player player) {
 		super(parent, style);
 		
 		Label playerPicLabel = new Label(this, SWT.NONE);
@@ -36,13 +34,13 @@ public class ScoreScreen extends CR_Composite {
 		MyTeamScore.setBounds(10, 131, 156, 30);
 		
 		Label teamScoreNum = new Label(this, SWT.NONE);
-		teamScoreNum.setText("1578");
+		teamScoreNum.setText(player.getTeam().getPoints()+"");
 		teamScoreNum.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.NORMAL));
 		teamScoreNum.setAlignment(SWT.RIGHT);
 		teamScoreNum.setBounds(172, 131, 64, 30);
 		
 		Label myScoreNum = new Label(this, SWT.NONE);
-		myScoreNum.setText("250");
+		myScoreNum.setText(player.getPoints()+"");
 		myScoreNum.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.NORMAL));
 		myScoreNum.setAlignment(SWT.RIGHT);
 		myScoreNum.setBounds(172, 95, 64, 30);

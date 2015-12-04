@@ -6,6 +6,9 @@ import codereview.viewsoverride.CR_Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import classes.Player;
+
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.CoolBar;
@@ -19,8 +22,9 @@ public class ReviwerScreen extends CR_Composite {
 	 * Create the composite.
 	 * @param parent
 	 * @param style
+	 * @param player 
 	 */
-	public ReviwerScreen(Composite parent, int style) {
+	public ReviwerScreen(Composite parent, int style, Player player) {
 		super(parent, style);
 		
 		Label lblNewLabel = new Label(this, SWT.BORDER);
@@ -37,7 +41,7 @@ public class ReviwerScreen extends CR_Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setVisible(false);
-				MainScreen.mainMenu.setVisible(true);
+				MainScreen.mainMenuScreen.setVisible(true);
 			}
 		});
 		backBtn.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/back.png"));
