@@ -2,8 +2,8 @@ package codereview.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import classes.Segment;
 
 
 
@@ -29,6 +29,15 @@ public class DataHandler {
 	private void connect() throws Exception {
 		connect = DriverManager.getConnection("jdbc:mysql://"+parameters[IP]+":"+parameters[PORT]+"?user="+parameters[USER]+"&password="+parameters[PASS]);
 		connect.createStatement().executeQuery("USE "+DB_NAME);
+	}
+	
+	public void saveSegment(Segment seg) throws Exception{
+		connect();
+		String query = "INSERT INTO segments(player_id, code_text, comment_text)"+
+		"VALUES("+seg.getWriter().getId()+", \'"+seg.getCode()+"\', ";
+		query+=(seg.getComment()==null)?"null":"\'"+seg.getComment()+"\'";
+		connect.createStatement().executeUpdate(query+=");");
+		connect.close();
 	}
 	
 }
