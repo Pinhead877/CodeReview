@@ -10,4 +10,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface.text;bundle-version="3.10.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
- swing2swt.jar
+ swing2swt.jar,
+ src/codereview/data/mysql-connector-java-5.1.36-bin.jar

@@ -42,7 +42,7 @@ public class MainMenu extends CR_Composite{
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setVisible(false);
-				MainScreen.initializeReviewerScreen();
+				MainScreen.initializeReviewsList();
 			}
 		});
 		ReviewerModeBtn.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/reviewer.png"));

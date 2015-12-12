@@ -12,33 +12,12 @@ package codereview.views;
 
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import classes.Player;
-import classes.Team;
-
-
-/**
- * This sample class demonstrates how to plug-in a new
- * workbench view. The view shows data obtained from the
- * model. The sample creates a dummy model on the fly,
- * but a real implementation would connect to the model
- * available either in this or another plug-in (e.g. the workspace).
- * The view is connected to the model using a content provider.
- * <p>
- * The view uses a label provider to define how model
- * objects should be presented in the view. Each
- * view can present the same model objects usin
- * different labels and icons, if needed. Alternatively,
- * a single label provider can be shared between views
- * in order to ensure that objects of the same type are
- * presented in the same way everywhere.
- * <p>
- */
+import classes.*;
+import codereview.data.DataHandler;
 
 public class MainScreen extends ViewPart {
 	public MainScreen() {
@@ -50,21 +29,40 @@ public class MainScreen extends ViewPart {
 	public static ScoreScreen scoreScreen;
 	public static MainMenu mainMenuScreen;
 	public static SendReviewScreen sendReviewScreen;
+	public static ReviewsList reviewsListScreen;
 	
 	public static Composite mainScreen;
 	
 	private static Team team;
 	private static Player player;
 	
+	public static DataHandler handler;
+	
 
 	@Override
 	public void createPartControl(Composite parent) {
 		
+		try {
+			handler = new DataHandler();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		mainScreen = parent;
 		
-		player = new Player("Alex");
+		player = new Player("Alex", team, "alex@google.com");
 		team = new Team("Power Rangers");
 		team.addNewTeamMember(player);
+		
+		try {
+			team.setId(handler.saveTeamAndGetID(team));
+			player.setId(handler.savePlayerAndGetID(player, "123456789"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		parent.setLayout(null);
 		parent.setBackground(SWTResourceManager.getColor(240, 240, 240));
@@ -79,8 +77,8 @@ public class MainScreen extends ViewPart {
 		sendReviewScreen.setVisible(true);
 	}
 
-	public static void initializeReviewerScreen() {
-		reviwerScreen = new ReviwerScreen(mainScreen, SWT.NONE, player);
+	public static void initializeReviewerScreen(Segment seg) {
+		reviwerScreen = new ReviwerScreen(mainScreen, SWT.NONE, player, seg);
 		reviwerScreen.setVisible(true);
 		reviwerScreen.setBounds(0, 169, 236, 368);
 	}
@@ -101,6 +99,16 @@ public class MainScreen extends ViewPart {
 		scoreScreen = new ScoreScreen(mainScreen, SWT.NONE, player);
 		scoreScreen.setBounds(0, 0, 594, 167);
 		scoreScreen.setVisible(true);
+	}
+	
+	public static void initializeReviewsList() {
+		reviewsListScreen = new ReviewsList(mainScreen, SWT.NONE, player);
+		reviewsListScreen.setBounds(0, 169, 236, 368);
+		reviewsListScreen.setVisible(true);
+	}
+	
+	public static Player getPlayer() {
+		return player;
 	}
 
 	@Override

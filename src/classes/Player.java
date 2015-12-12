@@ -8,6 +8,7 @@ public class Player {
 	private Team team;
 	private int points;
 	private String imagePath;
+	private String mail;
 	
 	private ArrayList<Segment> segmentsPublished;
 	private ArrayList<Review> reviewsWrote;
@@ -19,6 +20,29 @@ public class Player {
 	public Player(int id, String name) {
 		this.id = id;
 		this.name = name;
+	}
+	
+	public Player(String name, Team team, int points, String image, String mail){
+		this.name = name;
+		this.team = team;
+		this.points = points;
+		this.imagePath = image;
+		this.mail = mail;
+	}
+	
+	public Player(int id, String name, Team team, int points, String image, String mail){
+		this.id = id;
+		this.name = name;
+		this.team = team;
+		this.points = points;
+		this.imagePath = image;
+		this.mail = mail;
+	}
+
+	public Player(String name, Team team, String mail) {
+		this.name = name;
+		this.team = team;
+		this.mail = mail;
 	}
 
 	public String getName() {
@@ -64,6 +88,18 @@ public class Player {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 	
 	

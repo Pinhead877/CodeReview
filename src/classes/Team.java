@@ -3,6 +3,7 @@ package classes;
 import java.util.ArrayList;
 
 public class Team {
+	private int id;
 	private String name;
 	private String imagePath;
 	private int points;
@@ -49,4 +50,14 @@ public class Team {
 	public void setTeamMembers(ArrayList<Player> teamMembers) {
 		this.teamMembers = teamMembers;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 }

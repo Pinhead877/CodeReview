@@ -2,6 +2,7 @@ package classes;
 
 public class Segment {
 	
+	private int segId;
 	private String code, comment;
 	private Player writer;
 	private Review review;
@@ -14,6 +15,16 @@ public class Segment {
 		this.comment = comment;
 		this.code = code;
 		this.writer = writer;
+	}
+	
+	public Segment(int id, String code, String comment){
+		this(code, comment);
+		this.segId = id;
+	}
+
+	public Segment(String code, String comment) {
+		this.code = code;
+		this.comment = comment;
 	}
 
 	public String getCode() {
@@ -35,4 +46,14 @@ public class Segment {
 	public String getComment(){
 		return this.comment;
 	}
+
+	public int getSegId() {
+		return segId;
+	}
+
+	public void setSegId(int segId) {
+		this.segId = segId;
+	}
+	
+	
 }

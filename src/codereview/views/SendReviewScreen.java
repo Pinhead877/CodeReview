@@ -60,9 +60,15 @@ public class SendReviewScreen extends CR_Composite {
 		SendSegmentBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				player.addPoints(Points.POINTS_FOR_CREATING_NEW_REVIEW);
+				try {
+					MainScreen.handler.saveSegment(MainScreen.getPlayer(), codeTextInput.getText(), commentsTextInput.getText());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				codeTextInput.setText("");
 				commentsTextInput.setText("");
-				player.addPoints(Points.POINTS_FOR_CREATING_NEW_REVIEW);
 			}
 		});
 		SendSegmentBtn.setBounds(147, 387, 89, 25);
