@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS players (
     p_name NVARCHAR(50) NOT NULL,
     p_points INT DEFAULT 0,
     team_id INT,
+    is_reviewer bool default false,
     mail NVARCHAR(50) NOT NULL,
     u_password NVARCHAR(16) NOT NULL,
     PRIMARY KEY (p_id)
@@ -34,6 +35,8 @@ CREATE TABLE IF NOT EXISTS reviews (
     PRIMARY KEY (r_id)
 );
 CREATE TABLE IF NOT EXISTS segments_for_review(
+	id int not null auto_increment,
 	player_id int not null,
-    segment_id int not null
+    segment_id int not null,
+    primary key(id)
 );

@@ -9,6 +9,7 @@ public class Player {
 	private int points;
 	private String imagePath;
 	private String mail;
+	private boolean reviewer;
 	
 	private ArrayList<Segment> segmentsPublished;
 	private ArrayList<Review> reviewsWrote;
@@ -100,6 +101,14 @@ public class Player {
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+
+	public boolean isReviewer() {
+		return reviewer;
+	}
+
+	public void setReviewer(boolean reviewer) {
+		this.reviewer = reviewer;
 	}
 	
 	

@@ -44,7 +44,8 @@ public class ReviewsList extends Composite {
 		Segment[] segments = null;
 		String [] items = null;
 		try {
-			segments = MainScreen.handler.getSegmentsByPlayer(player);
+			segments = MainScreen.handler.getSegmentsForReviewByPlayer(player);
+			System.out.println(segments.length);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +60,7 @@ public class ReviewsList extends Composite {
 			List list = new List(this, SWT.BORDER);
 			list.setBounds(10, 107, 225, 321);
 			list.setItems(items);
-			list.addListener(SWT.Selection, new Listener() {
+			list.addListener(SWT.MouseDoubleClick, new Listener() {
 
 				@Override
 				public void handleEvent(Event arg0) {

@@ -62,7 +62,7 @@ public class SendReviewScreen extends CR_Composite {
 			public void widgetSelected(SelectionEvent e) {
 				player.addPoints(Points.POINTS_FOR_CREATING_NEW_REVIEW);
 				try {
-					MainScreen.handler.saveSegment(MainScreen.getPlayer(), codeTextInput.getText(), commentsTextInput.getText());
+					MainScreen.handler.sendSegment(MainScreen.getPlayer(), codeTextInput.getText(), commentsTextInput.getText());
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
