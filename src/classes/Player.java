@@ -31,13 +31,14 @@ public class Player {
 		this.mail = mail;
 	}
 	
-	public Player(int id, String name, Team team, int points, String image, String mail){
+	public Player(int id, String name, Team team, int points, String image, String mail, boolean reviewer){
 		this.id = id;
 		this.name = name;
 		this.team = team;
 		this.points = points;
 		this.imagePath = image;
 		this.mail = mail;
+		this.reviewer = reviewer;
 	}
 
 	public Player(String name, Team team, String mail) {

@@ -9,13 +9,13 @@ CREATE TABLE IF NOT EXISTS teams (
     PRIMARY KEY (t_id)
 );
 CREATE TABLE IF NOT EXISTS players (
-    p_id INT NOT NULL AUTO_INCREMENT,
-    p_name NVARCHAR(50) NOT NULL,
-    p_points INT DEFAULT 0,
-    team_id INT,
-    is_reviewer bool default false,
-    mail NVARCHAR(50) NOT NULL,
-    u_password NVARCHAR(16) NOT NULL,
+    p_id INT NOT NULL AUTO_INCREMENT,	#1
+    p_name NVARCHAR(50) NOT NULL,		#2
+    p_points INT DEFAULT 0,				#3
+    team_id INT, 						#4
+    is_reviewer bool default false,		#5
+    mail NVARCHAR(50) NOT NULL,			#6
+    u_password NVARCHAR(16) NOT NULL,	#7
     PRIMARY KEY (p_id)
 );
 CREATE TABLE IF NOT EXISTS segments (

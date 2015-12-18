@@ -14,6 +14,17 @@ public class Team {
 		teamMembers = new ArrayList<Player>();
 	}
 	
+	
+	
+	public Team(int id, String name, String imagePath, int points) {
+		this.id = id;
+		this.name = name;
+		this.imagePath = imagePath;
+		this.points = points;
+	}
+
+
+
 	public void addNewTeamMember(Player player){
 		player.setTeam(this);
 		teamMembers.add(player);

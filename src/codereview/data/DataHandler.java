@@ -113,6 +113,7 @@ public class DataHandler {
 		while(result.next()){
 			segments[index++] = new Segment(result.getInt(1), result.getString(3), result.getString(4));
 		}
+		connect.close();
 		return segments;
 	}
 	
@@ -124,6 +125,23 @@ public class DataHandler {
 		while(result.next()){
 			reviewers.add(result.getInt("p_id"));
 		}
+		connect.close();
 		return reviewers.get(new Random().nextInt(reviewers.size()));
+	}
+	
+	public Player loadPlayer(String mail, String password) throws Exception{
+		connect();
+		String query = "SELECT * FROM players where mail like '"+mail+"' AND u_password like '"+password+"';";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(!result.first()){
+			return null;
+		}
+		query = "SELECT * FROM teams WHERE t_id = "+result.getInt("team_id")+";";
+		ResultSet teamResult = connect.createStatement().executeQuery(query);
+		if(!teamResult.first()){
+			return null;
+		}
+		Team team = new Team(teamResult.getInt("t_id"), teamResult.getString("t_name"), "", teamResult.getInt("t_points"));
+		return new Player(result.getInt("p_id"), result.getString("p_name"), team, result.getInt("p_points"), "", result.getString("mail"), result.getBoolean("is_reviewer"));
 	}
 }
