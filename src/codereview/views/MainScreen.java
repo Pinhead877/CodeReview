@@ -18,8 +18,12 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import classes.*;
 import codereview.data.DataHandler;
+import codereview.data.Files;
 
 public class MainScreen extends ViewPart {
+	
+	public static final int MAIL = 0, PASSWORD = 1;
+	
 	public MainScreen() {
 		
 	}
@@ -30,10 +34,11 @@ public class MainScreen extends ViewPart {
 	public static MainMenu mainMenuScreen;
 	public static SendReviewScreen sendReviewScreen;
 	public static ReviewsList reviewsListScreen;
+	public static LoginScreen loginScreen;
 	
 	public static Composite mainScreen;
 	
-	private static Team team;
+//	private static Team team;
 	private static Player player;
 	
 	public static DataHandler handler;
@@ -51,22 +56,31 @@ public class MainScreen extends ViewPart {
 		
 		mainScreen = parent;
 		
-		player = new Player("Alex", team, "alex@google.com");
-		team = new Team("Power Rangers");
-		team.addNewTeamMember(player);
-		
-		try {
-			team.setId(handler.saveTeamAndGetID(team));
-			player.setId(handler.savePlayerAndGetID(player, "123456789"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		player = new Player("Alex", team, "alex@google.com");
+//		team = new Team("Power Rangers");
+//		team.addNewTeamMember(player);
+//		
+//		try {
+//			team.setId(handler.saveTeamAndGetID(team));
+//			player.setId(handler.savePlayerAndGetID(player, "123456789"));
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 		parent.setLayout(null);
 		parent.setBackground(SWTResourceManager.getColor(240, 240, 240));
 		
+		try {
+			login();
+		} catch (Exception e) {
+			initializeLoginScreen();
+			e.printStackTrace();
+		}
+	}
+
+	public static void firstScreen() {
 		initializeScoreScreen();
 		initializeMainMenu();
 	}
@@ -110,10 +124,36 @@ public class MainScreen extends ViewPart {
 	public static Player getPlayer() {
 		return player;
 	}
+	
+	private static void login() throws Exception{
+		String [] userDetails = Files.loadLoginFile();
+		if(userDetails==null){
+			initializeLoginScreen();
+			return;
+		}
+		player = new DataHandler().loadPlayer(userDetails[MAIL], userDetails[PASSWORD]);
+		if(player==null){
+			initializeLoginScreen();
+			return;
+		}
+		firstScreen();
+	}
+
+	private static void initializeLoginScreen() {
+		loginScreen = new LoginScreen(mainScreen, SWT.NONE);
+		loginScreen.setBounds(0, 0, 246, 540);
+		loginScreen.setVisible(true);
+	}
 
 	@Override
 	public void setFocus() {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public static void setPlayer(Player player) {
+		MainScreen.player = player;
+	}
+	
+	
 }
