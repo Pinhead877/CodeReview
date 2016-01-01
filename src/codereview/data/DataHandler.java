@@ -106,6 +106,9 @@ public class DataHandler {
 			}
 			tempIDs += result.getInt(1);
 		}
+		if(tempIDs==""){
+			return null;
+		}
 		query = "SELECT * FROM segments WHERE s_id in ("+tempIDs+");";
 		result = connect.createStatement().executeQuery(query);
 		segments = new Segment[index];

@@ -56,19 +56,6 @@ public class MainScreen extends ViewPart {
 		
 		mainScreen = parent;
 		
-//		player = new Player("Alex", team, "alex@google.com");
-//		team = new Team("Power Rangers");
-//		team.addNewTeamMember(player);
-//		
-//		try {
-//			team.setId(handler.saveTeamAndGetID(team));
-//			player.setId(handler.savePlayerAndGetID(player, "123456789"));
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
 		parent.setLayout(null);
 		parent.setBackground(SWTResourceManager.getColor(240, 240, 240));
 		
@@ -139,7 +126,7 @@ public class MainScreen extends ViewPart {
 		firstScreen();
 	}
 
-	private static void initializeLoginScreen() {
+	public static void initializeLoginScreen() {
 		loginScreen = new LoginScreen(mainScreen, SWT.NONE);
 		loginScreen.setBounds(0, 0, 246, 540);
 		loginScreen.setVisible(true);

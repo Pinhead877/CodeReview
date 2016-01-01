@@ -3,21 +3,50 @@ package codereview.views;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import classes.Player;
 import codereview.viewsoverride.CR_Composite;
+import org.eclipse.swt.events.MouseTrackAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseAdapter;
 
 public class MainMenu extends CR_Composite{
 	private Text text;
 
 	public MainMenu(Composite parent, int style, Player player) {
 		super(parent, style);
+		
+		Label logout = new Label(this, SWT.NONE);
+		logout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				MainScreen.scoreScreen.setVisible(false);
+				setVisible(false);
+				MainScreen.setPlayer(null);
+				MainScreen.initializeLoginScreen();
+			}
+		});
+		logout.addMouseTrackListener(new MouseTrackAdapter() {
+			@Override
+			public void mouseEnter(MouseEvent e) {
+				logout.setBackground(new Color(null, 220, 220, 220, 255));
+			}
+			public void mouseExit(MouseEvent e){
+				logout.setBackground(new Color(null, 240, 240, 240, 255));
+			}
+		});
+		logout.setDragDetect(false);
+		logout.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/logout.png"));
+		logout.setBounds(10, 10, 30, 32);
 		
 		Label MainMenuLabel = new Label(this, SWT.NONE);
 		MainMenuLabel.setFont(SWTResourceManager.getFont("Segoe UI", 18, SWT.BOLD));
