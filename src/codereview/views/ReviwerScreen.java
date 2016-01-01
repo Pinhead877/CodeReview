@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import classes.Player;
+import classes.Points;
 import classes.Segment;
 import codereview.data.DataHandler;
 import codereview.viewsoverride.CR_Composite;
@@ -69,6 +70,7 @@ public class ReviwerScreen extends CR_Composite {
 			public void widgetSelected(SelectionEvent e) {
 				try {
 					new DataHandler().saveReview(seg.getSegId(), starRating.getSelection(), reviewText.getText(), player.getId());
+					MainScreen.updatePlayerPoints(player, Points.POINTS_FOR_CREATING_NEW_REVIEW);
 					setVisible(false);
 					MainScreen.initializeReviewsList();
 				} catch (Exception e1) {

@@ -10,8 +10,8 @@ public class Test {
 		Player player = new Player("Alex", team, "alex@google.com");
 		player.setId(1);
 		
-		Segment seg1 = new Segment("THE CODE THE CODE", player, "COmmmmment");
-		Segment seg2 = new Segment("THE CODE THE CODE", player);
+//		Segment seg1 = new Segment("THE CODE THE CODE", player, "COmmmmment");
+//		Segment seg2 = new Segment("THE CODE THE CODE", player);
 
 		try {
 //			for (int i = 0; i < 10; i++) {

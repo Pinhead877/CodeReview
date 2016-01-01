@@ -32,7 +32,7 @@ public class MainScreen extends ViewPart {
 	public static CreatorScreen creatorScreen;
 	public static ScoreScreen scoreScreen;
 	public static MainMenu mainMenuScreen;
-	public static SendReviewScreen sendReviewScreen;
+	public static SendSegmentScreen sendReviewScreen;
 	public static ReviewsList reviewsListScreen;
 	public static LoginScreen loginScreen;
 	
@@ -73,7 +73,7 @@ public class MainScreen extends ViewPart {
 	}
 
 	public static void initializeSendReviewScreen() {
-		sendReviewScreen = new SendReviewScreen(mainScreen, SWT.NONE, player);
+		sendReviewScreen = new SendSegmentScreen(mainScreen, SWT.NONE, player);
 		sendReviewScreen.setBounds(0, 0, 236, 540);
 		sendReviewScreen.setVisible(true);
 	}
@@ -135,12 +135,15 @@ public class MainScreen extends ViewPart {
 	@Override
 	public void setFocus() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public static void setPlayer(Player player) {
 		MainScreen.player = player;
 	}
 	
+	public static void updatePlayerPoints(Player player, int points) throws Exception{
+		player.addPoints(points);
+		new DataHandler().updatePlayerPoints(player);
+	}
 	
 }

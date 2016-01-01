@@ -3,12 +3,14 @@ package codereview.data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import com.mysql.jdbc.Statement;
 
 import classes.Player;
+import classes.Review;
 import classes.Segment;
 import classes.Team;
 
@@ -129,6 +131,9 @@ public class DataHandler {
 			reviewers.add(result.getInt("p_id"));
 		}
 		connect.close();
+		if(reviewers.size()==0){
+			throw new Exception("No Reviwers Found!");
+		}
 		return reviewers.get(new Random().nextInt(reviewers.size()));
 	}
 
@@ -165,4 +170,65 @@ public class DataHandler {
 		connect.createStatement().executeUpdate(query);
 		connect.close();
 	}
+
+	public String getNumberOfSegmentsByPlayer(int id) throws Exception {
+		connect();
+		String query = "SELECT count(*) FROM segments WHERE player_id ="+id;
+		ResultSet result = connect.createStatement().executeQuery(query);
+		result.first();
+		int count = result.getInt(1);
+		return count+"";
+	}
+	
+	public String getNumberOfReviewsByPlayer(int id) throws Exception {
+		connect();
+		String query = "SELECT count(*) FROM reviews WHERE player_id ="+id;
+		ResultSet result = connect.createStatement().executeQuery(query);
+		result.first();
+		int count = result.getInt(1);
+		return count+"";
+	}
+
+	public void updatePlayerPoints(Player player) throws Exception {
+		connect();
+		String query = "UPDATE players SET p_points = "+player.getPoints()+" WHERE p_id = "+player.getId()+";";
+		connect.createStatement().executeUpdate(query);
+		connect.close();
+	}
+	
+	public String getNumberOfReviewsWaitingByPlayer(int id) throws Exception {
+		connect();
+		String query = "SELECT count(*) FROM segments_for_review WHERE player_id ="+id;
+		ResultSet result = connect.createStatement().executeQuery(query);
+		result.first();
+		int count = result.getInt(1);
+		return count+"";
+	}
+	
+	public Review[] getReviewsBySegmentsWriter(Player player) throws Exception{
+		connect();
+		String query = "SELECT r.r_id, s.s_id, r.score, r.review_text, r.is_read FROM segments s, reviews r"+
+		"WHERE s.s_id = r.segment_id AND s.player_id = "+player.getId();
+		ResultSet result = connect.createStatement().executeQuery(query);
+		ArrayList<Review> reviews = new ArrayList<Review>();
+		while(result.next()){
+			reviews.add(new Review(result.getInt(1), getSegmentById(result.getInt(2), player), result.getString(4), result.getInt(3), result.getBoolean(5)));
+		}
+		connect.close();
+		return (Review[]) reviews.toArray();
+	}
+	
+	public Segment getSegmentById(int id, Player player) throws Exception{
+		connect();
+		String query = "SELECT * FROM segments WHERE s_id = "+id+";";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(!result.first()){
+			connect.close();
+			return null;
+		}
+		Segment seg = new Segment(result.getInt(1), result.getString(3), result.getString(4), player);
+		connect.close();
+		return seg;
+	}
+	
 }

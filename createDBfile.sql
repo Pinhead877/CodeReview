@@ -27,11 +27,12 @@ CREATE TABLE IF NOT EXISTS segments (
     PRIMARY KEY (s_id)
 );
 CREATE TABLE IF NOT EXISTS reviews (
-    r_id INT NOT NULL AUTO_INCREMENT,
-    segment_id INT NOT NULL,
-    score INT NOT NULL,
-    review_text NVARCHAR(500),
-    player_id INT NOT NULL,
+    r_id INT NOT NULL AUTO_INCREMENT,	#1
+    segment_id INT NOT NULL,			#2
+    score INT NOT NULL,					#3
+    review_text NVARCHAR(500),			#4
+    player_id INT NOT NULL,				#5
+    is_read bool default false,			#6
     PRIMARY KEY (r_id)
 );
 CREATE TABLE IF NOT EXISTS segments_for_review(

@@ -7,15 +7,25 @@ public class Segment {
 	private Player writer;
 	private Review review;
 	
-	public Segment(String code, Player writer){
-		this(code, writer, null);
-	}
 	
-	public Segment(String code, Player writer, String comment){
-		this.comment = comment;
+	
+	public Segment(int segId, String code, String comment, Player writer, Review review) {
+		this.segId = segId;
 		this.code = code;
+		this.comment = comment;
 		this.writer = writer;
+		this.review = review;
 	}
+
+//	public Segment(String code, Player writer){
+//		this(code, writer, null);
+//	}
+//	
+//	public Segment(String code, Player writer, String comment){
+//		this.comment = comment;
+//		this.code = code;
+//		this.writer = writer;
+//	}
 	
 	public Segment(int id, String code, String comment){
 		this(code, comment);
@@ -25,6 +35,10 @@ public class Segment {
 	public Segment(String code, String comment) {
 		this.code = code;
 		this.comment = comment;
+	}
+
+	public Segment(int int1, String string, String string2, Player player) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getCode() {

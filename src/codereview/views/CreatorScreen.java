@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import classes.Player;
+import codereview.data.DataHandler;
 import codereview.viewsoverride.CR_Composite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -27,17 +28,23 @@ public class CreatorScreen extends CR_Composite {
 		setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		
 		Label ReviewsWaitingLabel = new Label(this, SWT.NONE);
+		ReviewsWaitingLabel.setTouchEnabled(true);
 		ReviewsWaitingLabel.setText("Reviews Waiting:");
 		ReviewsWaitingLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsWaitingLabel.setBounds(10, 215, 156, 23);
 		
 		Label ReviewsIWroteLabel = new Label(this, SWT.NONE);
 		ReviewsIWroteLabel.setText("Reviews I Wrote:");
-		ReviewsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		ReviewsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsIWroteLabel.setBounds(10, 186, 156, 23);
 		
 		Label segmentIwroteNum = new Label(this, SWT.NONE);
-		segmentIwroteNum.setText("36");
+		try {
+			segmentIwroteNum.setText(new DataHandler().getNumberOfSegmentsByPlayer(player.getId()));
+		} catch (Exception e1) {
+			segmentIwroteNum.setText("???");
+			e1.printStackTrace();
+		}
 		segmentIwroteNum.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		segmentIwroteNum.setAlignment(SWT.RIGHT);
 		segmentIwroteNum.setBounds(172, 92, 64, 23);
@@ -64,14 +71,19 @@ public class CreatorScreen extends CR_Composite {
 		searchButton.setBounds(206, 286, 30, 30);
 		
 		Label ReviewsIWroteNum = new Label(this, SWT.NONE);
-		ReviewsIWroteNum.setText("47");
+		try {
+			ReviewsIWroteNum.setText(new DataHandler().getNumberOfReviewsByPlayer(player.getId()));
+		} catch (Exception e1) {
+			ReviewsIWroteNum.setText("???");
+			e1.printStackTrace();
+		}
 		ReviewsIWroteNum.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsIWroteNum.setAlignment(SWT.RIGHT);
 		ReviewsIWroteNum.setBounds(172, 186, 64, 23);
 		
 		Label SegmentsIWroteLabel = new Label(this, SWT.NONE);
 		SegmentsIWroteLabel.setText("Segments I Wrote:");
-		SegmentsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		SegmentsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		SegmentsIWroteLabel.setBounds(10, 92, 156, 23);
 		
 		Label MySegmentsLabel = new Label(this, SWT.BORDER);
