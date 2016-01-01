@@ -14,6 +14,8 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
 public class ReviewsList extends Composite {
+	
+	Segment[] segments;
 
 	public ReviewsList(Composite parent, int style, Player player) {
 		super(parent, style);
@@ -41,7 +43,7 @@ public class ReviewsList extends Composite {
 		explainLbl.setText("Explaination about what to do...");
 
 
-		Segment[] segments = null;
+		segments = null;
 		String [] items = null;
 		try {
 			segments = MainScreen.handler.getSegmentsForReviewByPlayer(player);
@@ -51,7 +53,12 @@ public class ReviewsList extends Composite {
 			e.printStackTrace();
 		}
 
-		if(segments!=null){
+		if(segments==null){
+			explainLbl.setText("Error loading data...");
+		}
+		else if(segments.length==0){
+			explainLbl.setText("No new segments to review...");
+		}else{
 			items = new String[segments.length];
 			for(int i=0;i<segments.length;i++){
 				items[i] = segments[i].getCode();
@@ -65,12 +72,12 @@ public class ReviewsList extends Composite {
 				@Override
 				public void handleEvent(Event arg0) {
 					int [] selected = list.getSelectionIndices();
-					for(int i=0;i<selected.length;i++)
-						System.out.println(selected[i]);
+//					for(int i=0;i<selected.length;i++)
+//						System.out.println(selected[i]);
+					setVisible(false);
+					MainScreen.initializeReviewerScreen(segments[selected[0]]);
 				}
 			});
-		}else{
-			explainLbl.setText("Error loading data...");
 		}
 	}
 

@@ -12,38 +12,37 @@ import classes.Player;
 import classes.Segment;
 import classes.Team;
 
-
-
 public class DataHandler {
-	
+
 	private Connection connect;
-	
-	private static final String [] parameters = {"localhost","3306","admin","monkey36more"};
-	
+
+	private static final String[] parameters = { "localhost", "3306", "admin", "monkey36more" };
+
 	private static final String DB_NAME = "codereviewdb";
-	
+
 	private static final int IP = 0;
 	private static final int PORT = 1;
 	private static final int USER = 2;
 	private static final int PASS = 3;
-	
-	public DataHandler() throws Exception{
+
+	public DataHandler() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		connect();
 		connect.close();
 	}
 
 	private void connect() throws Exception {
-		connect = DriverManager.getConnection("jdbc:mysql://"+parameters[IP]+":"+parameters[PORT]+"?user="+parameters[USER]+"&password="+parameters[PASS]);
-		connect.createStatement().executeQuery("USE "+DB_NAME);
+		connect = DriverManager.getConnection("jdbc:mysql://" + parameters[IP] + ":" + parameters[PORT] + "?user="
+				+ parameters[USER] + "&password=" + parameters[PASS]);
+		connect.createStatement().executeQuery("USE " + DB_NAME);
 	}
-	
-	public int saveSegmentAndGetID(Player player, String code, String comment) throws Exception{
+
+	public int saveSegmentAndGetID(Player player, String code, String comment) throws Exception {
 		connect();
-		String query = "INSERT INTO segments(player_id, code_text, comment_text)"+
-		"VALUES("+player.getId()+", \'"+code+"\', ";
-		query+=(comment==null)?"null":"\'"+comment+"\'";
-		query+=");";
+		String query = "INSERT INTO segments(player_id, code_text, comment_text)" + "VALUES(" + player.getId() + ", \'"
+				+ code + "\', ";
+		query += (comment == null) ? "null" : "\'" + comment + "\'";
+		query += ");";
 		java.sql.Statement statement = connect.createStatement();
 		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		ResultSet result = statement.getGeneratedKeys();
@@ -52,21 +51,22 @@ public class DataHandler {
 		connect.close();
 		return returnedID;
 	}
-	public void sendSegment(Player player, String code, String comment) throws Exception{
-		System.out.println("ID of the sender: "+player.getId());
+
+	public void sendSegment(Player player, String code, String comment) throws Exception {
+		System.out.println("ID of the sender: " + player.getId());
 		int reviewer = getReviewerForSegment(player.getId());
 		int segmentId = saveSegmentAndGetID(player, code, comment);
 		connect();
-		String query = "INSERT INTO segments_for_review"+
-		"(player_id, segment_id) VALUES("+reviewer+", "+segmentId+")";
+		String query = "INSERT INTO segments_for_review" + "(player_id, segment_id) VALUES(" + reviewer + ", "
+				+ segmentId + ")";
 		connect.createStatement().executeUpdate(query);
 		connect.close();
 	}
-	
-	public int savePlayerAndGetID(Player player, String password) throws Exception{
+
+	public int savePlayerAndGetID(Player player, String password) throws Exception {
 		connect();
-		String query = "INSERT INTO players(p_name, team_id, mail, u_password)"+
-						" VALUES('"+player.getName()+"', "+player.getTeam().getId()+", '"+player.getMail()+"', '"+password+"');";	
+		String query = "INSERT INTO players(p_name, team_id, mail, u_password)" + " VALUES('" + player.getName() + "', "
+				+ player.getTeam().getId() + ", '" + player.getMail() + "', '" + password + "');";
 		java.sql.Statement statement = connect.createStatement();
 		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		ResultSet result = statement.getGeneratedKeys();
@@ -75,10 +75,10 @@ public class DataHandler {
 		connect.close();
 		return returnedID;
 	}
-	
-	public int saveTeamAndGetID(Team team) throws Exception{
+
+	public int saveTeamAndGetID(Team team) throws Exception {
 		connect();
-		String query = "INSERT INTO teams(t_name) VALUES('"+team.getName()+"')";
+		String query = "INSERT INTO teams(t_name) VALUES('" + team.getName() + "')";
 		java.sql.Statement statement = connect.createStatement();
 		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		ResultSet result = statement.getGeneratedKeys();
@@ -87,64 +87,82 @@ public class DataHandler {
 		connect.close();
 		return returnedID;
 	}
-	
-	public Segment[] getSegmentsForReviewByPlayer(Player player) throws Exception{
+
+	public Segment[] getSegmentsForReviewByPlayer(Player player) throws Exception {
 		Segment[] segments;
 		int index = 0;
 		connect();
-		String query = "SELECT * FROM segments_for_review WHERE player_id="+player.getId()+";";
-		String size = "SELECT COUNT(*) FROM segments_for_review WHERE player_id="+player.getId()+";";
+		String query = "SELECT * FROM segments_for_review WHERE player_id=" + player.getId() + ";";
+		String size = "SELECT COUNT(*) FROM segments_for_review WHERE player_id=" + player.getId() + ";";
 		ResultSet result = connect.createStatement().executeQuery(query);
 		ResultSet conutResult = connect.createStatement().executeQuery(size);
-		if(!conutResult.first()){
+		if (!conutResult.first()) {
 			return null;
 		}
 		String tempIDs = "";
-		while(result.next()){
-			if(index++>0){
+		while (result.next()) {
+			if (index++ > 0) {
 				tempIDs += ", ";
 			}
 			tempIDs += result.getInt(1);
 		}
-		if(tempIDs==""){
-			return null;
+		if (tempIDs == "") {
+			return segments = new Segment[0];
 		}
-		query = "SELECT * FROM segments WHERE s_id in ("+tempIDs+");";
+		query = "SELECT * FROM segments WHERE s_id in (" + tempIDs + ");";
 		result = connect.createStatement().executeQuery(query);
 		segments = new Segment[index];
 		index = 0;
-		while(result.next()){
+		while (result.next()) {
 			segments[index++] = new Segment(result.getInt(1), result.getString(3), result.getString(4));
 		}
 		connect.close();
 		return segments;
 	}
-	
-	public int getReviewerForSegment(int id) throws Exception{
+
+	public int getReviewerForSegment(int id) throws Exception {
 		connect();
-		String query = "SELECT p_id FROM players WHERE is_reviewer = true AND p_id != "+id+";";
+		String query = "SELECT p_id FROM players WHERE is_reviewer = true AND p_id != " + id + ";";
 		ResultSet result = connect.createStatement().executeQuery(query);
 		ArrayList<Integer> reviewers = new ArrayList<Integer>();
-		while(result.next()){
+		while (result.next()) {
 			reviewers.add(result.getInt("p_id"));
 		}
 		connect.close();
 		return reviewers.get(new Random().nextInt(reviewers.size()));
 	}
-	
-	public Player loadPlayer(String mail, String password) throws Exception{
+
+	public Player loadPlayer(String mail, String password) throws Exception {
 		connect();
-		String query = "SELECT * FROM players where mail like '"+mail+"' AND u_password like '"+password+"';";
+		String query = "SELECT * FROM players where mail like '" + mail + "' AND u_password like '" + password + "';";
 		ResultSet result = connect.createStatement().executeQuery(query);
-		if(!result.first()){
+		if (!result.first()) {
 			return null;
 		}
-		query = "SELECT * FROM teams WHERE t_id = "+result.getInt("team_id")+";";
+		query = "SELECT * FROM teams WHERE t_id = " + result.getInt("team_id") + ";";
 		ResultSet teamResult = connect.createStatement().executeQuery(query);
-		if(!teamResult.first()){
+		if (!teamResult.first()) {
 			return null;
 		}
-		Team team = new Team(teamResult.getInt("t_id"), teamResult.getString("t_name"), "", teamResult.getInt("t_points"));
-		return new Player(result.getInt("p_id"), result.getString("p_name"), team, result.getInt("p_points"), "", result.getString("mail"), result.getBoolean("is_reviewer"));
+		Team team = new Team(teamResult.getInt("t_id"), teamResult.getString("t_name"), "",
+				teamResult.getInt("t_points"));
+		return new Player(result.getInt("p_id"), result.getString("p_name"), team, result.getInt("p_points"), "",
+				result.getString("mail"), result.getBoolean("is_reviewer"));
+	}
+
+	public void saveReview(int segId, int score, String review, int reviewerId) throws Exception{
+		connect();
+		String query = "INSERT INTO reviews(segment_id, score, review_text, player_id)"+
+		"VALUES("+segId+", "+score+", '"+review+"', "+reviewerId+");";
+		java.sql.Statement statement = connect.createStatement();
+		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+		ResultSet result = statement.getGeneratedKeys();
+		result.first();
+		int returnedID = result.getInt(1);
+		query = "DELETE FROM `segments_for_review` WHERE `segment_id`="+segId+";";
+		connect.createStatement().executeUpdate(query);
+		query = "UPDATE segments SET review_id = "+returnedID+" WHERE s_id = "+segId+";";
+		connect.createStatement().executeUpdate(query);
+		connect.close();
 	}
 }
