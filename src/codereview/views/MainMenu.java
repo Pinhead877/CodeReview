@@ -86,11 +86,11 @@ public class MainMenu extends CR_Composite{
 		Group grpSearchBox = new Group(this, SWT.NONE);
 		grpSearchBox.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		grpSearchBox.setText("Search Box");
-		grpSearchBox.setBounds(10, 234, 226, 134);
+		grpSearchBox.setBounds(10, 234, 226, 97);
 		
 		text = new Text(grpSearchBox, SWT.BORDER);
 		text.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
-		text.setBounds(10, 62, 206, 26);
+		text.setBounds(10, 62, 185, 26);
 		
 		Label label = new Label(grpSearchBox, SWT.NONE);
 		label.setText("Search the knowlegde base:");
@@ -98,8 +98,8 @@ public class MainMenu extends CR_Composite{
 		label.setBounds(10, 39, 173, 17);
 		
 		Button btnSearch = new Button(grpSearchBox, SWT.NONE);
-		btnSearch.setBounds(150, 94, 66, 25);
-		btnSearch.setText("Search");
+		btnSearch.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/search.png"));
+		btnSearch.setBounds(197, 62, 25, 25);
 		
 	}
 }
