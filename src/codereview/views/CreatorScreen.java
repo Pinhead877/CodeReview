@@ -10,30 +10,25 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import classes.Player;
 import codereview.data.DataHandler;
 import codereview.viewsoverride.CR_Composite;
+
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import codereview.viewsoverride.LabelButton;
 
 public class CreatorScreen extends CR_Composite {
-
-	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
-	 */
-	
-	private Text searchTextBox;
 
 	public CreatorScreen(Composite parent, int style, Player player) {
 		super(parent, style);
 		setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		
-		Label ReviewsWaitingLabel = new Label(this, SWT.NONE);
-		ReviewsWaitingLabel.setTouchEnabled(true);
+		LabelButton ReviewsWaitingLabel = new LabelButton(this, SWT.NONE);
 		ReviewsWaitingLabel.setText("Reviews Waiting:");
 		ReviewsWaitingLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsWaitingLabel.setBounds(10, 215, 156, 23);
 		
-		Label ReviewsIWroteLabel = new Label(this, SWT.NONE);
+		LabelButton ReviewsIWroteLabel = new LabelButton(this, SWT.NONE);
 		ReviewsIWroteLabel.setText("Reviews I Wrote:");
 		ReviewsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsIWroteLabel.setBounds(10, 186, 156, 23);
@@ -66,10 +61,6 @@ public class CreatorScreen extends CR_Composite {
 		MyReviewsLabel.setAlignment(SWT.CENTER);
 		MyReviewsLabel.setBounds(10, 150, 226, 30);
 		
-		Button searchButton = new Button(this, SWT.NONE);
-		searchButton.setImage(SWTResourceManager.getImage(MainScreen.class, "/codereview/assets/search.png"));
-		searchButton.setBounds(206, 286, 30, 30);
-		
 		Label ReviewsIWroteNum = new Label(this, SWT.NONE);
 		try {
 			ReviewsIWroteNum.setText(new DataHandler().getNumberOfReviewsByPlayer(player.getId()));
@@ -81,7 +72,7 @@ public class CreatorScreen extends CR_Composite {
 		ReviewsIWroteNum.setAlignment(SWT.RIGHT);
 		ReviewsIWroteNum.setBounds(172, 186, 64, 23);
 		
-		Label SegmentsIWroteLabel = new Label(this, SWT.NONE);
+		LabelButton SegmentsIWroteLabel = new LabelButton(this, SWT.NONE);
 		SegmentsIWroteLabel.setText("Segments I Wrote:");
 		SegmentsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		SegmentsIWroteLabel.setBounds(10, 92, 156, 23);
@@ -91,11 +82,6 @@ public class CreatorScreen extends CR_Composite {
 		MySegmentsLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		MySegmentsLabel.setAlignment(SWT.CENTER);
 		MySegmentsLabel.setBounds(10, 56, 226, 30);
-		
-		searchTextBox = new Text(this, SWT.BORDER);
-		searchTextBox.setToolTipText("Search...");
-		searchTextBox.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
-		searchTextBox.setBounds(10, 286, 190, 30);
 		
 		Label ReviewsWatingLabel = new Label(this, SWT.NONE);
 		try {
@@ -136,7 +122,7 @@ public class CreatorScreen extends CR_Composite {
 		});
 		askForAReviewBtn.setBounds(10, 244, 100, 30);
 		askForAReviewBtn.setText("Ask For a Review");
-		
+				
 	}
 
 	@Override
