@@ -230,4 +230,20 @@ public class DataHandler {
 		return seg;
 	}
 	
+	public Segment[] getSegmentsByPlayer(Player player) throws Exception{
+		connect();
+		String query = "SELECT count(*) FROM segments WHERE player_id="+player.getId()+";";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(!result.first()){
+			return null;
+		}
+		Segment [] list = new Segment[result.getInt(1)];
+		query = "SELECT * FROM segments WHERE player_id = "+player.getId()+";";
+		result = connect.createStatement().executeQuery(query);
+		int index = 0;
+		while(result.next()){
+			list[index++] = new Segment(result.getInt(1),result.getString(3),result.getString(4),player);
+		}
+		return list;
+	}
 }

@@ -37,8 +37,9 @@ public class Segment {
 		this.comment = comment;
 	}
 
-	public Segment(int int1, String string, String string2, Player player) {
-		// TODO Auto-generated constructor stub
+	public Segment(int id, String code, String comment, Player player) {
+		this(id,code,comment);
+		this.writer = player;
 	}
 
 	public String getCode() {

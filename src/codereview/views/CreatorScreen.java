@@ -27,6 +27,20 @@ public class CreatorScreen extends CR_Composite {
 		ReviewsWaitingLabel.setText("Reviews Waiting:");
 		ReviewsWaitingLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsWaitingLabel.setBounds(10, 215, 156, 23);
+		ReviewsWaitingLabel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) { }
+			
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+				setVisible(false);
+				MainScreen.initializeReviewsList();
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) {	}
+		});
 		
 		LabelButton ReviewsIWroteLabel = new LabelButton(this, SWT.NONE);
 		ReviewsIWroteLabel.setText("Reviews I Wrote:");
@@ -72,10 +86,22 @@ public class CreatorScreen extends CR_Composite {
 		ReviewsIWroteNum.setAlignment(SWT.RIGHT);
 		ReviewsIWroteNum.setBounds(172, 186, 64, 23);
 		
-		LabelButton SegmentsIWroteLabel = new LabelButton(this, SWT.NONE);
-		SegmentsIWroteLabel.setText("Segments I Wrote:");
-		SegmentsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
-		SegmentsIWroteLabel.setBounds(10, 92, 156, 23);
+		LabelButton segmentsIWroteLabel = new LabelButton(this, SWT.NONE);
+		segmentsIWroteLabel.setText("Segments I Wrote:");
+		segmentsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		segmentsIWroteLabel.setBounds(10, 92, 156, 23);
+		segmentsIWroteLabel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) {}
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+				setVisible(false);
+				MainScreen.initializeSegmentWroteList();
+			}
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) {}
+		});
 		
 		Label MySegmentsLabel = new Label(this, SWT.BORDER);
 		MySegmentsLabel.setText("My Segments");

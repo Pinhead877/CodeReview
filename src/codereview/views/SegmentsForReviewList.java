@@ -13,11 +13,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
-public class ReviewsList extends Composite {
+public class SegmentsForReviewList extends Composite {
 	
 	Segment[] segments;
 
-	public ReviewsList(Composite parent, int style, Player player) {
+	public SegmentsForReviewList(Composite parent, int style, Player player) {
 		super(parent, style);
 
 		Label lblSegmentsList = new Label(this, SWT.BORDER);
@@ -27,7 +27,7 @@ public class ReviewsList extends Composite {
 		lblSegmentsList.setBounds(10, 10, 194, 30);
 
 		Button backBtn = new Button(this, SWT.NONE);
-		backBtn.setImage(SWTResourceManager.getImage(ReviewsList.class, "/codereview/assets/back.png"));
+		backBtn.setImage(SWTResourceManager.getImage(SegmentsForReviewList.class, "/codereview/assets/back.png"));
 		backBtn.setBounds(210, 13, 25, 25);
 		backBtn.addListener(SWT.Selection, new Listener() {
 			
