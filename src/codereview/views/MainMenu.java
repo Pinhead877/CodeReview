@@ -1,23 +1,27 @@
 package codereview.views;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import classes.Player;
 import codereview.viewsoverride.CR_Composite;
-import org.eclipse.swt.events.MouseTrackAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseAdapter;
 
 public class MainMenu extends CR_Composite{
 	private Text text;
@@ -98,6 +102,21 @@ public class MainMenu extends CR_Composite{
 		label.setBounds(10, 39, 173, 17);
 		
 		Button btnSearch = new Button(grpSearchBox, SWT.NONE);
+		btnSearch.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport().createBrowser("CodeReview");
+					browser.openURL(new URL("http://localhost/codereview/search.php?q="+text.getText()));
+				} catch (PartInitException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnSearch.setBounds(150, 94, 66, 25);
 		btnSearch.setText("Search");
 		

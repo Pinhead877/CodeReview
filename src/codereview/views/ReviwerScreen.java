@@ -45,7 +45,7 @@ public class ReviwerScreen extends CR_Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setVisible(false);
-				MainScreen.mainMenuScreen.setVisible(true);
+				MainScreen.initializeReviewsList();
 			}
 		});
 		backBtn.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/back.png"));

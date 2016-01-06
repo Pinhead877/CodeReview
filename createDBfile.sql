@@ -1,3 +1,10 @@
+##################################
+## In the server users			##
+## Create Username by the name:	##
+## Username: admin				##
+## Password: monkey36more		##
+##################################
+
 create schema if not exists codereviewdb;
 
 use codereviewdb;
@@ -41,3 +48,19 @@ CREATE TABLE IF NOT EXISTS segments_for_review(
     segment_id int not null,
     primary key(id)
 );
+
+INSERT INTO `codereviewdb`.`teams`
+(`t_name`)
+VALUES
+("Name");
+
+
+INSERT INTO `codereviewdb`.`players`
+(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+VALUES
+("test",1,true,"test",1234);
+
+INSERT INTO `codereviewdb`.`players`
+(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+VALUES
+("test2",1,true,"test2",1234);

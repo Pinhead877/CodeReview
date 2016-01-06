@@ -55,7 +55,7 @@ public class CreatorScreen extends CR_Composite {
 		qualitysIWroteLabel.setBounds(10, 121, 156, 23);
 		
 		Label qualitysIWroteNum = new Label(this, SWT.NONE);
-		qualitysIWroteNum.setText("4");
+		qualitysIWroteNum.setText("TEXT");
 		qualitysIWroteNum.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		qualitysIWroteNum.setAlignment(SWT.RIGHT);
 		qualitysIWroteNum.setBounds(172, 121, 64, 23);
@@ -98,7 +98,12 @@ public class CreatorScreen extends CR_Composite {
 		searchTextBox.setBounds(10, 286, 190, 30);
 		
 		Label ReviewsWatingLabel = new Label(this, SWT.NONE);
-		ReviewsWatingLabel.setText("3");
+		try {
+			ReviewsWatingLabel.setText(new DataHandler().getNumberOfReviewsWaitingByPlayer(player.getId()));
+		} catch (Exception e1) {
+			ReviewsWatingLabel.setText("???");
+			e1.printStackTrace();
+		}
 		ReviewsWatingLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsWatingLabel.setAlignment(SWT.RIGHT);
 		ReviewsWatingLabel.setBounds(172, 215, 64, 23);

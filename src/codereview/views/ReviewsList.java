@@ -52,7 +52,9 @@ public class ReviewsList extends Composite {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		List list = new List(this, SWT.BORDER | SWT.V_SCROLL);
+		list.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
+		list.setBounds(10, 107, 225, 251);
 		if(segments==null){
 			explainLbl.setText("Error loading data...");
 		}
@@ -64,8 +66,7 @@ public class ReviewsList extends Composite {
 				items[i] = segments[i].getCode();
 			}
 
-			List list = new List(this, SWT.BORDER);
-			list.setBounds(10, 107, 225, 321);
+			
 			list.setItems(items);
 			list.addListener(SWT.MouseDoubleClick, new Listener() {
 
