@@ -230,6 +230,19 @@ public class DataHandler {
 		return seg;
 	}
 	
+	public Segment getSegmentById(int id) throws Exception{
+		connect();
+		String query = "SELECT * FROM segments WHERE s_id = "+id+";";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(!result.first()){
+			connect.close();
+			return null;
+		}
+		Segment seg = new Segment(result.getInt(1), result.getString(3), result.getString(4));
+		connect.close();
+		return seg;
+	}
+	
 	public Segment[] getSegmentsByPlayer(Player player) throws Exception{
 		connect();
 		String query = "SELECT count(*) FROM segments WHERE player_id="+player.getId()+";";
@@ -243,6 +256,24 @@ public class DataHandler {
 		int index = 0;
 		while(result.next()){
 			list[index++] = new Segment(result.getInt(1),result.getString(3),result.getString(4),player);
+		}
+		return list;
+	}
+	
+	public Review[] getReviewsByPlayer(Player player) throws Exception{
+		connect();
+		String query = "SELECT COUNT(*) FROM reviews WHERE player_id="+player.getId()+";";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(!result.first()){
+			return null;
+		}
+		Review [] list = new Review[result.getInt(1)];
+		query = "SELECT * FROM reviews WHERE player_id="+player.getId()+";";
+		result = connect.createStatement().executeQuery(query);
+		int index = 0;
+		while(result.next()){
+			Segment seg = getSegmentById(result.getInt(2));
+			list[index++] = new Review(result.getInt(1), seg, result.getString(4), result.getInt(3), player, result.getBoolean(6));
 		}
 		return list;
 	}

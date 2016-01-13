@@ -46,6 +46,18 @@ public class CreatorScreen extends CR_Composite {
 		ReviewsIWroteLabel.setText("Reviews I Wrote:");
 		ReviewsIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		ReviewsIWroteLabel.setBounds(10, 186, 156, 23);
+		ReviewsIWroteLabel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) {}
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+				setVisible(false);
+				MainScreen.initializeReviewsWroteList();
+			}
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) {}
+		});
 		
 		Label segmentIwroteNum = new Label(this, SWT.NONE);
 		try {

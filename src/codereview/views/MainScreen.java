@@ -33,9 +33,10 @@ public class MainScreen extends ViewPart {
 	public static ScoreScreen scoreScreen;
 	public static MainMenu mainMenuScreen;
 	public static SendSegmentScreen sendReviewScreen;
-	public static SegmetsWroteList reviewsListScreen;
+	public static SegmentsForReviewList reviewsListScreen;
 	public static LoginScreen loginScreen;
 	public static SegmetsWroteList segmentsWroteList;
+	public static ReviewsWroteList reviewsWroteList;
 	
 	public static Composite mainScreen;
 	
@@ -104,7 +105,7 @@ public class MainScreen extends ViewPart {
 	}
 	
 	public static void initializeReviewsList() {
-		reviewsListScreen = new SegmetsWroteList(mainScreen, SWT.NONE, player);
+		reviewsListScreen = new SegmentsForReviewList(mainScreen, SWT.NONE, player);
 		reviewsListScreen.setBounds(0, 169, 236, 368);
 		reviewsListScreen.setVisible(true);
 	}
@@ -151,6 +152,12 @@ public class MainScreen extends ViewPart {
 	public static void updatePlayerPoints(Player player, int points) throws Exception{
 		player.addPoints(points);
 		new DataHandler().updatePlayerPoints(player);
+	}
+
+	public static void initializeReviewsWroteList() {
+		reviewsWroteList = new ReviewsWroteList(mainScreen, SWT.NONE, player);
+		reviewsWroteList.setBounds(0, 169, 236, 368);
+		reviewsWroteList.setVisible(true);
 	}
 	
 }

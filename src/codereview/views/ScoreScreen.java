@@ -35,13 +35,13 @@ public class ScoreScreen extends CR_Composite {
 		
 		Label teamScoreNum = new Label(this, SWT.NONE);
 		teamScoreNum.setText(player.getTeam().getPoints()+"");
-		teamScoreNum.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.NORMAL));
+		teamScoreNum.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 		teamScoreNum.setAlignment(SWT.RIGHT);
 		teamScoreNum.setBounds(172, 131, 64, 30);
 		
 		Label myScoreNum = new Label(this, SWT.NONE);
 		myScoreNum.setText(player.getPoints()+"");
-		myScoreNum.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.NORMAL));
+		myScoreNum.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 		myScoreNum.setAlignment(SWT.RIGHT);
 		myScoreNum.setBounds(172, 95, 64, 30);
 		

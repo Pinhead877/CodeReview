@@ -16,11 +16,19 @@ public class Review {
 	}
 
 	public Review(int revId, Segment segment, String review, int score, boolean read) {
-		super();
 		this.revId = revId;
 		this.segment = segment;
 		this.review = review;
 		this.score = score;
+		this.read = read;
+	}
+
+	public Review(int revId, Segment segment, String review, int score, Player writer, boolean read) {
+		this.revId = revId;
+		this.segment = segment;
+		this.review = review;
+		this.score = score;
+		this.writer = writer;
 		this.read = read;
 	}
 
