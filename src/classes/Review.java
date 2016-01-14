@@ -40,11 +40,11 @@ public class Review {
 		this.revId = revId;
 	}
 
-	public Segment getSegId() {
+	public Segment getSeg() {
 		return segment;
 	}
 
-	public void setSegId(Segment segment) {
+	public void setSeg(Segment segment) {
 		this.segment = segment;
 	}
 

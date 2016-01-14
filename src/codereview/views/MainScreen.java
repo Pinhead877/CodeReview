@@ -1,13 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2015 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/
+
 package codereview.views;
 
 
@@ -37,10 +28,10 @@ public class MainScreen extends ViewPart {
 	public static LoginScreen loginScreen;
 	public static SegmetsWroteList segmentsWroteList;
 	public static ReviewsWroteList reviewsWroteList;
+	public static SegmentReviewView segmentReviewView;
 	
 	public static Composite mainScreen;
 	
-//	private static Team team;
 	private static Player player;
 	
 	public static DataHandler handler;
@@ -158,6 +149,12 @@ public class MainScreen extends ViewPart {
 		reviewsWroteList = new ReviewsWroteList(mainScreen, SWT.NONE, player);
 		reviewsWroteList.setBounds(0, 169, 236, 368);
 		reviewsWroteList.setVisible(true);
+	}
+
+	public static void initializeSegmentReviewViewScreen(Segment seg, Review rev, int screenNum) {
+		segmentReviewView = new SegmentReviewView(mainScreen, SWT.NONE, seg, rev, screenNum);
+		segmentReviewView.setVisible(true);
+		segmentReviewView.setBounds(0, 169, 236, 368);
 	}
 	
 }

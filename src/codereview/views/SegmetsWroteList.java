@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Cons;
 import classes.Player;
 import classes.Segment;
 
@@ -69,8 +70,7 @@ public class SegmetsWroteList extends Composite {
 				public void handleEvent(Event arg0) {
 					int [] selected = list.getSelectionIndices();
 					setVisible(false);
-					//TODO - add the action for the click
-					//MainScreen.initializeReviewerScreen(segments[selected[0]]);
+					MainScreen.initializeSegmentReviewViewScreen(segments[selected[0]],null, Cons.SEGMENT_VIEW);
 				}
 			});
 		}

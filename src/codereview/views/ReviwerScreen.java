@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Cons;
 import classes.Player;
 import classes.Points;
 import classes.Segment;
@@ -82,7 +83,8 @@ public class ReviwerScreen extends CR_Composite {
 		sendBtn.setText("Send");
 		
 		Label randomAvatar = new Label(this, SWT.NONE);
-		randomAvatar.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/avatars/"+(new Random().nextInt(14)+1)+".jpg"));
+		//TODO change number of images to be dynamic
+		randomAvatar.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/avatars/"+(new Random().nextInt(Cons.NUMBER_OF_IMAGES)+1)+".jpg"));
 		randomAvatar.setBounds(10, 46, 30, 30);
 
 	}

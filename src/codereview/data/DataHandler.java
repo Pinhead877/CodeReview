@@ -141,17 +141,21 @@ public class DataHandler {
 		String query = "SELECT * FROM players where mail like '" + mail + "' AND u_password like '" + password + "';";
 		ResultSet result = connect.createStatement().executeQuery(query);
 		if (!result.first()) {
+			connect.close();
 			return null;
 		}
 		query = "SELECT * FROM teams WHERE t_id = " + result.getInt("team_id") + ";";
 		ResultSet teamResult = connect.createStatement().executeQuery(query);
 		if (!teamResult.first()) {
+			connect.close();
 			return null;
 		}
 		Team team = new Team(teamResult.getInt("t_id"), teamResult.getString("t_name"), "",
 				teamResult.getInt("t_points"));
-		return new Player(result.getInt("p_id"), result.getString("p_name"), team, result.getInt("p_points"), "",
+		Player p = new Player(result.getInt("p_id"), result.getString("p_name"), team, result.getInt("p_points"), "",
 				result.getString("mail"), result.getBoolean("is_reviewer"));
+		connect.close();
+		return p;
 	}
 
 	public void saveReview(int segId, int score, String review, int reviewerId) throws Exception{
@@ -176,6 +180,7 @@ public class DataHandler {
 		ResultSet result = connect.createStatement().executeQuery(query);
 		result.first();
 		int count = result.getInt(1);
+		connect.close();
 		return count+"";
 	}
 	
@@ -185,6 +190,7 @@ public class DataHandler {
 		ResultSet result = connect.createStatement().executeQuery(query);
 		result.first();
 		int count = result.getInt(1);
+		connect.close();
 		return count+"";
 	}
 
@@ -201,6 +207,7 @@ public class DataHandler {
 		ResultSet result = connect.createStatement().executeQuery(query);
 		result.first();
 		int count = result.getInt(1);
+		connect.close();
 		return count+"";
 	}
 	
@@ -255,11 +262,30 @@ public class DataHandler {
 		result = connect.createStatement().executeQuery(query);
 		int index = 0;
 		while(result.next()){
-			list[index++] = new Segment(result.getInt(1),result.getString(3),result.getString(4),player);
+			Review rev = null;
+			if(result.getInt(5)==0){
+				rev = new Review(0,null, "Waiting for Review...", 0, false);
+			}else{
+				rev = getReviewById(result.getInt(5));
+			}
+			list[index++] = new Segment(result.getInt(1), result.getString(3), result.getString(4), player, rev);
 		}
+		connect.close();
 		return list;
 	}
 	
+	private Review getReviewById(int segId) throws Exception {
+		connect();
+		String query = "SELECT * FROM reviews WHERE segment_id = "+segId+";";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(!result.first()){
+			return null;
+		}
+		Review rev = new Review(result.getInt(1), null, result.getString(4), result.getInt(3), result.getBoolean(6));
+		connect.close();
+		return rev;
+	}
+
 	public Review[] getReviewsByPlayer(Player player) throws Exception{
 		connect();
 		String query = "SELECT COUNT(*) FROM reviews WHERE player_id="+player.getId()+";";
@@ -275,6 +301,13 @@ public class DataHandler {
 			Segment seg = getSegmentById(result.getInt(2));
 			list[index++] = new Review(result.getInt(1), seg, result.getString(4), result.getInt(3), player, result.getBoolean(6));
 		}
+		connect.close();
 		return list;
+	}
+
+	public Review getReviewBySegment(Segment seg) throws Exception {
+		Review rev = getReviewById(seg.getSegId());
+		rev.setSeg(seg);
+		return rev;
 	}
 }

@@ -16,16 +16,6 @@ public class Segment {
 		this.writer = writer;
 		this.review = review;
 	}
-
-//	public Segment(String code, Player writer){
-//		this(code, writer, null);
-//	}
-//	
-//	public Segment(String code, Player writer, String comment){
-//		this.comment = comment;
-//		this.code = code;
-//		this.writer = writer;
-//	}
 	
 	public Segment(int id, String code, String comment){
 		this(code, comment);

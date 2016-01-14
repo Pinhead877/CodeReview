@@ -9,12 +9,15 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Cons;
 import classes.Player;
 import classes.Review;
 import codereview.viewsoverride.CR_Composite;
 
 public class ReviewsWroteList extends CR_Composite {
 
+	Review [] reviews;
+	
 	public ReviewsWroteList(Composite parent, int style, Player player) {
 		super(parent, style);
 
@@ -25,10 +28,10 @@ public class ReviewsWroteList extends CR_Composite {
 		List list = new List(this, SWT.BORDER | SWT.V_SCROLL);
 		list.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		list.setBounds(10, 107, 225, 251);
-		Review [] reviews = null;
+		reviews = null;
 		try {
 			reviews = MainScreen.handler.getReviewsByPlayer(player);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,8 +49,8 @@ public class ReviewsWroteList extends CR_Composite {
 				@Override
 				public void handleEvent(Event arg0) {
 					int [] selected = list.getSelectionIndices();
-					//setVisible(false);
-					//TODO - add the action for the click
+					setVisible(false);
+					MainScreen.initializeSegmentReviewViewScreen(null, reviews[selected[0]], Cons.REVIEW_VIEW);
 				}
 			});
 		}
