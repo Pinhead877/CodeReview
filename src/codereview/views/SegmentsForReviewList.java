@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Cons;
 import classes.Player;
 import classes.Segment;
 
@@ -17,7 +18,7 @@ public class SegmentsForReviewList extends Composite {
 	
 	Segment[] segments;
 
-	public SegmentsForReviewList(Composite parent, int style, Player player) {
+	public SegmentsForReviewList(Composite parent, int style, Player player, int lastScreen) {
 		super(parent, style);
 
 		Label lblSegmentsList = new Label(this, SWT.BORDER);
@@ -34,7 +35,12 @@ public class SegmentsForReviewList extends Composite {
 			@Override
 			public void handleEvent(Event arg0) {
 				setVisible(false);
-				MainScreen.initializeMainMenu();
+				//MainScreen.initializeMainMenu();
+				if(lastScreen==Cons.MAIN_MENU_SCREEN){
+					MainScreen.initializeMainMenu();
+				}else if(lastScreen==Cons.CREATOR_MODE_SCREEN){
+					MainScreen.initializeCreatorScreen();
+				}
 			}
 		});
 

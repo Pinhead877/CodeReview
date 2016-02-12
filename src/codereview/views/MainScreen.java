@@ -95,8 +95,8 @@ public class MainScreen extends ViewPart {
 		scoreScreen.setVisible(true);
 	}
 	
-	public static void initializeReviewsList() {
-		reviewsListScreen = new SegmentsForReviewList(mainScreen, SWT.NONE, player);
+	public static void initializeReviewsList(int lastScreen) {
+		reviewsListScreen = new SegmentsForReviewList(mainScreen, SWT.NONE, player, lastScreen);
 		reviewsListScreen.setBounds(0, 169, 236, 368);
 		reviewsListScreen.setVisible(true);
 	}
@@ -151,10 +151,11 @@ public class MainScreen extends ViewPart {
 		reviewsWroteList.setVisible(true);
 	}
 
-	public static void initializeSegmentReviewViewScreen(Segment seg, Review rev, int screenNum) {
-		segmentReviewView = new SegmentReviewView(mainScreen, SWT.NONE, seg, rev, screenNum);
+	public static void initializeSegmentReviewViewScreen(Segment seg, Review rev, int screenNum, int lastScreen) {
+		segmentReviewView = new SegmentReviewView(mainScreen, SWT.NONE, seg, rev, screenNum, lastScreen);
 		segmentReviewView.setVisible(true);
 		segmentReviewView.setBounds(0, 169, 236, 368);
 	}
+
 	
 }

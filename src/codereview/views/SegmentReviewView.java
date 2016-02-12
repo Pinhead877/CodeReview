@@ -21,7 +21,7 @@ public class SegmentReviewView extends CR_Composite{
 	private Text reviewText;
 	private String screenName;
 
-	public SegmentReviewView(Composite parent, int style, Segment seg, Review rev, int screen) {
+	public SegmentReviewView(Composite parent, int style, Segment seg, Review rev, int screen, int lastScreen) {
 		super(parent, style);
 		switch(screen){
 			case 1: 
@@ -52,7 +52,12 @@ public class SegmentReviewView extends CR_Composite{
 			public void widgetSelected(SelectionEvent e) {
 				//TODO - add return to the last screen
 				setVisible(false);
-				MainScreen.initializeMainMenu();
+				//MainScreen.initializeMainMenu();
+				if(lastScreen == Cons.REVIEWS_WROTE_SCREEN){
+					MainScreen.initializeReviewsWroteList();
+				}else if(lastScreen == Cons.SEGMENTS_WROTE_SCREEN){
+					MainScreen.initializeSegmentWroteList();
+				}
 			}
 		});
 		backBtn.setBounds(210, 13, 25, 25);

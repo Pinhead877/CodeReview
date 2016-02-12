@@ -50,7 +50,7 @@ public class ReviewsWroteList extends CR_Composite {
 				public void handleEvent(Event arg0) {
 					int [] selected = list.getSelectionIndices();
 					setVisible(false);
-					MainScreen.initializeSegmentReviewViewScreen(null, reviews[selected[0]], Cons.REVIEW_VIEW);
+					MainScreen.initializeSegmentReviewViewScreen(null, reviews[selected[0]], Cons.REVIEW_VIEW, Cons.REVIEWS_WROTE_SCREEN);
 				}
 			});
 		}
@@ -69,7 +69,8 @@ public class ReviewsWroteList extends CR_Composite {
 			@Override
 			public void handleEvent(Event arg0) {
 				setVisible(false);
-				MainScreen.initializeMainMenu();
+				//MainScreen.initializeMainMenu();
+				MainScreen.initializeCreatorScreen();
 			}
 		});
 

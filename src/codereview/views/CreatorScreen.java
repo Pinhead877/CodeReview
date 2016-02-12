@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Cons;
 import classes.Player;
 import codereview.data.DataHandler;
 import codereview.viewsoverride.CR_Composite;
@@ -35,7 +36,7 @@ public class CreatorScreen extends CR_Composite {
 			@Override
 			public void mouseDown(MouseEvent arg0) {
 				setVisible(false);
-				MainScreen.initializeReviewsList();
+				MainScreen.initializeReviewsList(Cons.CREATOR_MODE_SCREEN);
 			}
 			
 			@Override

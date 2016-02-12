@@ -45,8 +45,7 @@ public class ReviwerScreen extends CR_Composite {
 		backBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				setVisible(false);
-				MainScreen.initializeReviewsList();
+				goBackToMainMenu();
 			}
 		});
 		backBtn.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/back.png"));
@@ -72,8 +71,7 @@ public class ReviwerScreen extends CR_Composite {
 				try {
 					new DataHandler().saveReview(seg.getSegId(), starRating.getSelection(), reviewText.getText(), player.getId());
 					MainScreen.updatePlayerPoints(player, Points.POINTS_FOR_CREATING_NEW_REVIEW);
-					setVisible(false);
-					MainScreen.initializeReviewsList();
+					goBackToMainMenu();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -87,6 +85,11 @@ public class ReviwerScreen extends CR_Composite {
 		randomAvatar.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/avatars/"+(new Random().nextInt(Cons.NUMBER_OF_IMAGES)+1)+".jpg"));
 		randomAvatar.setBounds(10, 46, 30, 30);
 
+	}
+
+	protected void goBackToMainMenu() {
+		setVisible(false);
+		MainScreen.initializeReviewsList(Cons.MAIN_MENU_SCREEN);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Cons;
 import classes.Player;
 import codereview.viewsoverride.CR_Composite;
 
@@ -75,7 +76,7 @@ public class MainMenu extends CR_Composite{
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				setVisible(false);
-				MainScreen.initializeReviewsList();
+				MainScreen.initializeReviewsList(Cons.MAIN_MENU_SCREEN);
 			}
 		});
 		ReviewerModeBtn.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/reviewer.png"));

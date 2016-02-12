@@ -35,7 +35,8 @@ public class SegmetsWroteList extends Composite {
 			@Override
 			public void handleEvent(Event arg0) {
 				setVisible(false);
-				MainScreen.initializeMainMenu();
+				MainScreen.initializeCreatorScreen();
+				//MainScreen.initializeMainMenu();
 			}
 		});
 
@@ -70,7 +71,7 @@ public class SegmetsWroteList extends Composite {
 				public void handleEvent(Event arg0) {
 					int [] selected = list.getSelectionIndices();
 					setVisible(false);
-					MainScreen.initializeSegmentReviewViewScreen(segments[selected[0]],null, Cons.SEGMENT_VIEW);
+					MainScreen.initializeSegmentReviewViewScreen(segments[selected[0]],null, Cons.SEGMENT_VIEW, Cons.SEGMENTS_WROTE_SCREEN);
 				}
 			});
 		}
