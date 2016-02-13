@@ -9,6 +9,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -87,6 +88,13 @@ public class MainMenu extends CR_Composite{
 		ProfileBtn.setImage(SWTResourceManager.getImage(MainMenu.class, "/codereview/assets/profile.png"));
 		ProfileBtn.setBackground(SWTResourceManager.getColor(SWT.COLOR_TRANSPARENT));
 		ProfileBtn.setBounds(32, 177, 173, 41);
+		ProfileBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.initializeProfileScreen();
+			}
+		});
 		
 		Group grpSearchBox = new Group(this, SWT.NONE);
 		grpSearchBox.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));

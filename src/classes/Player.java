@@ -23,6 +23,11 @@ public class Player {
 		this.name = name;
 	}
 	
+	public Player(int id, String name, int points){
+		this(name,null,points,null,null);
+		this.id = id;
+	}
+	
 	public Player(String name, Team team, int points, String image, String mail){
 		this.name = name;
 		this.team = team;

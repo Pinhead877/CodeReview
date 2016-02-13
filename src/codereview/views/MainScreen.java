@@ -29,6 +29,8 @@ public class MainScreen extends ViewPart {
 	public static SegmetsWroteList segmentsWroteList;
 	public static ReviewsWroteList reviewsWroteList;
 	public static SegmentReviewView segmentReviewView;
+	public static ProfileScreen profileScreen;
+	public static HallOfFame hallOfFame;
 	
 	public static Composite mainScreen;
 	
@@ -157,5 +159,15 @@ public class MainScreen extends ViewPart {
 		segmentReviewView.setBounds(0, 169, 236, 368);
 	}
 
+	public static void initializeProfileScreen(){
+		profileScreen = new ProfileScreen(mainScreen, SWT.NONE, player);
+		profileScreen.setVisible(true);
+		profileScreen.setBounds(0, 169, 236, 368);
+	}
 	
+	public static void initializeHallOfFame(){
+		hallOfFame = new HallOfFame(mainScreen, SWT.NONE);
+		hallOfFame.setVisible(true);
+		hallOfFame.setBounds(0, 0, 246, 540);		
+	}
 }

@@ -50,9 +50,7 @@ public class SegmentReviewView extends CR_Composite{
 			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				//TODO - add return to the last screen
 				setVisible(false);
-				//MainScreen.initializeMainMenu();
 				if(lastScreen == Cons.REVIEWS_WROTE_SCREEN){
 					MainScreen.initializeReviewsWroteList();
 				}else if(lastScreen == Cons.SEGMENTS_WROTE_SCREEN){
@@ -67,7 +65,6 @@ public class SegmentReviewView extends CR_Composite{
 		explainTextLbl.setBounds(46, 46, 190, 30);
 		
 		Label avatarImageLbl = new Label(this, SWT.NONE);
-		//int numOfPics = new File("/codereview/assets/avatars/").listFiles().length;
 		avatarImageLbl.setImage(SWTResourceManager.getImage(SegmentReviewView.class, "/codereview/assets/avatars/"+(new Random().nextInt(Cons.NUMBER_OF_IMAGES)+1)+".jpg"));
 		avatarImageLbl.setBounds(10, 46, 30, 30);
 		

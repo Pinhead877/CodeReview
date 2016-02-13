@@ -36,7 +36,6 @@ public class SegmetsWroteList extends Composite {
 			public void handleEvent(Event arg0) {
 				setVisible(false);
 				MainScreen.initializeCreatorScreen();
-				//MainScreen.initializeMainMenu();
 			}
 		});
 
