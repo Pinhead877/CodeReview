@@ -2,7 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Comparable<Player>{
 	private int id;
 	private String name;
 	private Team team;
@@ -115,6 +115,15 @@ public class Player {
 
 	public void setReviewer(boolean reviewer) {
 		this.reviewer = reviewer;
+	}
+
+	@Override
+	public int compareTo(Player o) {
+		if(!(o instanceof Player)){
+			throw new ClassCastException("The Object is not of type Player");
+		}
+		
+		return o.points-this.points;
 	}
 	
 	

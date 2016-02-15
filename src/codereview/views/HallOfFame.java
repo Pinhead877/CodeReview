@@ -1,5 +1,7 @@
 package codereview.views;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -17,6 +19,7 @@ public class HallOfFame extends Composite {
 	private static final int NUM_LABEL_SIZE = 30;
 	private static final int NAME_LABEL_WIDTH = 183;
 	private static final int NAME_LABEL_HEIGHT = 30;
+	private static final int GAP = 3;
 	
 	private static final Point NUM_START = new Point(10, 46);
 	private static final Point NAME_START = new Point(46, 46);
@@ -52,25 +55,32 @@ public class HallOfFame extends Composite {
 			numLabels[index].setFont(SWTResourceManager.getFont("Small Fonts", 15, SWT.BOLD));
 			numLabels[index].setText(index+"");
 			numLabels[index].setBounds(NUM_START.x, y, NUM_LABEL_SIZE, NUM_LABEL_SIZE);
-			y+=NUM_LABEL_SIZE+5;
+			y+=NUM_LABEL_SIZE+GAP;
 		}
 		
 		try {
-			Player [] players = new DataHandler().getAllPlayers();
-			//TODO - sort the player list by the points
+//			Object [] players = new DataHandler().getAllPlayers();
+			ArrayList<Player> players = new DataHandler().getAllPlayers();
+			players.sort(null);
 			y = NAME_START.y;
 			for(int i=0;i<nameLabels.length;i++){
 				nameLabels[i] = new Label(this, SWT.NONE);
 				nameLabels[i].setAlignment(SWT.CENTER);
 				nameLabels[i].setFont(SWTResourceManager.getFont("Microsoft JhengHei UI", 14, SWT.NORMAL));
-				nameLabels[i].setText(players[i].getName());
+				nameLabels[i].setBounds(NAME_START.x, y, NAME_LABEL_WIDTH, NAME_LABEL_HEIGHT);
+				try {
+					if(players.get(i)!=null)
+						nameLabels[i].setText(players.get(i).getName()+" "+players.get(i).getPoints());
+				} catch (Exception e1) {
+					nameLabels[i].setText("NA");
+					e1.printStackTrace();
+				}
+				y+=NAME_LABEL_HEIGHT+GAP;
 			}
 		} catch (Exception e1) {
 			//TODO - add error message in a label
 			e1.printStackTrace();
 		}
-		
-		
 		
 //		Label nameLabel = new Label(this, SWT.NONE);
 //		nameLabel.setFont(SWTResourceManager.getFont("Microsoft JhengHei UI", 14, SWT.NORMAL));
