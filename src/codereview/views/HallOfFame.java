@@ -17,15 +17,16 @@ import codereview.data.DataHandler;
 public class HallOfFame extends Composite {
 	
 	private static final int NUM_LABEL_SIZE = 30;
-	private static final int NAME_LABEL_WIDTH = 183;
+	private static final int NAME_LABEL_WIDTH = 150;
 	private static final int NAME_LABEL_HEIGHT = 30;
 	private static final int GAP = 3;
 	
 	private static final Point NUM_START = new Point(10, 46);
-	private static final Point NAME_START = new Point(46, 46);
+	private static final Point NAME_START = new Point(NUM_START.x+NUM_LABEL_SIZE+GAP, NUM_START.y);
 	
 	private Label[] numLabels = new Label[11];
 	private Label[] nameLabels = new Label[11];
+	private Label[] pointsLabels = new Label[11];
 	
 	public HallOfFame(Composite parent, int style) {
 		super(parent, style);
@@ -53,26 +54,34 @@ public class HallOfFame extends Composite {
 			numLabels[index] = new Label(this,SWT.NONE);
 			numLabels[index].setAlignment(SWT.CENTER);
 			numLabels[index].setFont(SWTResourceManager.getFont("Small Fonts", 15, SWT.BOLD));
-			numLabels[index].setText(index+"");
+			numLabels[index].setText((index+1)+"");
 			numLabels[index].setBounds(NUM_START.x, y, NUM_LABEL_SIZE, NUM_LABEL_SIZE);
 			y+=NUM_LABEL_SIZE+GAP;
 		}
 		
 		try {
-//			Object [] players = new DataHandler().getAllPlayers();
 			ArrayList<Player> players = new DataHandler().getAllPlayers();
 			players.sort(null);
 			y = NAME_START.y;
 			for(int i=0;i<nameLabels.length;i++){
 				nameLabels[i] = new Label(this, SWT.NONE);
-				nameLabels[i].setAlignment(SWT.CENTER);
-				nameLabels[i].setFont(SWTResourceManager.getFont("Microsoft JhengHei UI", 14, SWT.NORMAL));
+				nameLabels[i].setAlignment(SWT.LEFT);
+				int fontStyle = SWT.NORMAL;
+				if(i<players.size() && MainScreen.getPlayer().getId()==players.get(i).getId())
+					fontStyle = SWT.BOLD;
+				nameLabels[i].setFont(SWTResourceManager.getFont("Microsoft JhengHei UI", 14, fontStyle));
 				nameLabels[i].setBounds(NAME_START.x, y, NAME_LABEL_WIDTH, NAME_LABEL_HEIGHT);
+				
+				pointsLabels[i] = new Label(this, SWT.NONE);
+				pointsLabels[i].setAlignment(SWT.RIGHT);
+				pointsLabels[i].setFont(SWTResourceManager.getFont("Microsoft JhengHei UI", 14, fontStyle));
+				pointsLabels[i].setBounds(NAME_START.x+NAME_LABEL_WIDTH+GAP,y, NUM_LABEL_SIZE, NUM_LABEL_SIZE);
 				try {
-					if(players.get(i)!=null)
-						nameLabels[i].setText(players.get(i).getName()+" "+players.get(i).getPoints());
+						nameLabels[i].setText(players.get(i).getName()+"");
+						pointsLabels[i].setText(players.get(i).getPoints()+"");
 				} catch (Exception e1) {
 					nameLabels[i].setText("NA");
+					pointsLabels[i].setText("NA");
 					e1.printStackTrace();
 				}
 				y+=NAME_LABEL_HEIGHT+GAP;
@@ -82,10 +91,6 @@ public class HallOfFame extends Composite {
 			e1.printStackTrace();
 		}
 		
-//		Label nameLabel = new Label(this, SWT.NONE);
-//		nameLabel.setFont(SWTResourceManager.getFont("Microsoft JhengHei UI", 14, SWT.NORMAL));
-//		nameLabel.setBounds(46, 46, 183, 30);
-//		nameLabel.setText("Player Name");
 
 	}
 
