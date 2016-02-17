@@ -14,11 +14,11 @@ import org.eclipse.swt.widgets.Label;
 public class LabelButton extends Label{
 	
 	private Label label;
-	private Composite parent;
+//	private Composite parent;
 
 	public LabelButton(Composite parent, int style) {
 		super(parent, style);
-		this.parent = parent;
+//		this.parent = parent;
 		label = new Label(parent, style);
 		label.addMouseTrackListener(new MouseTrackAdapter() {
 			@Override

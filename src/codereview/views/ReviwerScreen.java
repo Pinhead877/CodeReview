@@ -1,14 +1,21 @@
 package codereview.views;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import classes.Cons;
@@ -51,15 +58,54 @@ public class ReviwerScreen extends CR_Composite {
 		backBtn.setImage(SWTResourceManager.getImage(ReviwerScreen.class, "/codereview/assets/back.png"));
 		backBtn.setBounds(210, 13, 25, 25);
 		
-		Label reviewLbl = new Label(this, SWT.NONE);
+		Label reviewLbl = new Label(this, SWT.WRAP);
 		reviewLbl.setBounds(46, 46, 190, 30);
-		reviewLbl.setText("Please review me...");
+		reviewLbl.setText("Double Click the code to open it in the browser.");
 		
 		codeText = new Text(this, SWT.BORDER | SWT.WRAP);
 		codeText.setEditable(false);
 		codeText.setText(seg.getCode());
 		codeText.setToolTipText(seg.getComment());
 		codeText.setBounds(10, 82, 226, 120);
+		codeText.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) {
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) {
+				try {
+					final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport().createBrowser("CodeReview");
+					browser.openURL(new URL("http://localhost/codereview/segment.php?sid="+seg.getSegId()));
+				} catch (PartInitException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+//		codeText.addSelectionListener(new SelectionAdapter() {
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				try {
+//					final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport().createBrowser("CodeReview");
+//					browser.openURL(new URL("http://localhost/codereview/segment.php?sid="+seg.getSegId()));
+//				} catch (PartInitException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				} catch (MalformedURLException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
 		
 		reviewText = new Text(this, SWT.BORDER);
 		reviewText.setBounds(10, 239, 226, 96);

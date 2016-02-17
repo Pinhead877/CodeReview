@@ -20,7 +20,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import classes.Player;
 import classes.Points;
-import codereview.data.DataHandler;
 import codereview.viewsoverride.CR_Composite;
 
 public class SendSegmentScreen extends CR_Composite {
