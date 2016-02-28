@@ -42,6 +42,13 @@ public class ProfileScreen extends Composite {
 		statsBtn.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
 		statsBtn.setBounds(10, 112, 102, 35);
 		statsBtn.setText("Stats");
+		statsBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.initializeStatsScreen();
+			}
+		});
 		
 		Button btnAchievements = new Button(this, SWT.NONE);
 		btnAchievements.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));

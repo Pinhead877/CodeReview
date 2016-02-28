@@ -61,7 +61,7 @@ public class CreatorScreen extends CR_Composite {
 		
 		Label segmentIwroteNum = new Label(this, SWT.NONE);
 		try {
-			segmentIwroteNum.setText(new DataHandler().getNumberOfSegmentsByPlayer(player.getId()));
+			segmentIwroteNum.setText(""+new DataHandler().getNumberOfSegmentsByPlayer(player.getId()));
 		} catch (Exception e1) {
 			segmentIwroteNum.setText("???");
 			e1.printStackTrace();
@@ -89,7 +89,7 @@ public class CreatorScreen extends CR_Composite {
 		
 		Label ReviewsIWroteNum = new Label(this, SWT.NONE);
 		try {
-			ReviewsIWroteNum.setText(new DataHandler().getNumberOfReviewsByPlayer(player.getId()));
+			ReviewsIWroteNum.setText(""+new DataHandler().getNumberOfReviewsByPlayer(player.getId()));
 		} catch (Exception e1) {
 			ReviewsIWroteNum.setText("???");
 			e1.printStackTrace();
@@ -123,7 +123,7 @@ public class CreatorScreen extends CR_Composite {
 		
 		Label ReviewsWatingLabel = new Label(this, SWT.NONE);
 		try {
-			ReviewsWatingLabel.setText(new DataHandler().getNumberOfReviewsWaitingByPlayer(player.getId()));
+			ReviewsWatingLabel.setText(""+new DataHandler().getNumberOfReviewsWaitingByPlayer(player.getId()));
 		} catch (Exception e1) {
 			ReviewsWatingLabel.setText("???");
 			e1.printStackTrace();

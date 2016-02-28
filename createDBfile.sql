@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     review_text NVARCHAR(500),			#4
     player_id INT NOT NULL,				#5
     is_read bool default false,			#6
+    words_in_review FLOAT,				#7
     PRIMARY KEY (r_id)
 );
 CREATE TABLE IF NOT EXISTS segments_for_review(

@@ -1,6 +1,9 @@
 package classes;
 
 public final class Cons {
+	
+	public static final String PATH_TO_SERVER = "localhost";
+	
 	public static final int MAINMENU = 1;
 	public static final int CREATOR = 2;
 	
@@ -8,7 +11,6 @@ public final class Cons {
 	
 	public static final int REVIEW_VIEW = 1;
 	public static final int SEGMENT_VIEW = 2;
-	
 	
 	public static final int MAIN_MENU_SCREEN = 11;
 	public static final int CREATOR_MODE_SCREEN = 12;
@@ -22,4 +24,12 @@ public final class Cons {
 	public static final int PREVIEW_SEGMENT_SCREEN = 20;
 	public static final int PREVIEW_REVIEW_SCREEN = 21;
 	public static final int LOGIN_SCREEN = 22;
+	
+	public static float calcWordsInSentence(String review) {
+		String [] words = review.split(" ");
+		int sum = 0;
+		for(String word: words)
+			sum+=word.length();
+		return (float)sum/words.length;
+	}
 }

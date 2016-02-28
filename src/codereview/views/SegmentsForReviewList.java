@@ -35,7 +35,6 @@ public class SegmentsForReviewList extends Composite {
 			@Override
 			public void handleEvent(Event arg0) {
 				setVisible(false);
-				//MainScreen.initializeMainMenu();
 				if(lastScreen==Cons.MAIN_MENU_SCREEN){
 					MainScreen.initializeMainMenu();
 				}else if(lastScreen==Cons.CREATOR_MODE_SCREEN){
@@ -53,7 +52,6 @@ public class SegmentsForReviewList extends Composite {
 		String [] items = null;
 		try {
 			segments = MainScreen.handler.getSegmentsForReviewByPlayer(player);
-			System.out.println(segments.length);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,8 +77,6 @@ public class SegmentsForReviewList extends Composite {
 				@Override
 				public void handleEvent(Event arg0) {
 					int [] selected = list.getSelectionIndices();
-//					for(int i=0;i<selected.length;i++)
-//						System.out.println(selected[i]);
 					setVisible(false);
 					MainScreen.initializeReviewerScreen(segments[selected[0]]);
 				}

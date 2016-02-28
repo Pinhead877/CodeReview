@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.mysql.jdbc.Statement;
 
+import classes.Cons;
 import classes.Player;
 import classes.Review;
 import classes.Segment;
@@ -160,8 +161,9 @@ public class DataHandler {
 
 	public void saveReview(int segId, int score, String review, int reviewerId) throws Exception{
 		connect();
-		String query = "INSERT INTO reviews(segment_id, score, review_text, player_id)"+
-		"VALUES("+segId+", "+score+", '"+review+"', "+reviewerId+");";
+		float wordsInReview = Cons.calcWordsInSentence(review);
+		String query = "INSERT INTO reviews(segment_id, score, review_text, player_id, words_in_review)"+
+		"VALUES("+segId+", "+score+", '"+review+"', "+reviewerId+", "+wordsInReview+");";
 		java.sql.Statement statement = connect.createStatement();
 		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		ResultSet result = statement.getGeneratedKeys();
@@ -174,24 +176,24 @@ public class DataHandler {
 		connect.close();
 	}
 
-	public String getNumberOfSegmentsByPlayer(int id) throws Exception {
+	public int getNumberOfSegmentsByPlayer(int id) throws Exception {
 		connect();
 		String query = "SELECT count(*) FROM segments WHERE player_id ="+id;
 		ResultSet result = connect.createStatement().executeQuery(query);
 		result.first();
 		int count = result.getInt(1);
 		connect.close();
-		return count+"";
+		return count;
 	}
 	
-	public String getNumberOfReviewsByPlayer(int id) throws Exception {
+	public int getNumberOfReviewsByPlayer(int id) throws Exception {
 		connect();
 		String query = "SELECT count(*) FROM reviews WHERE player_id ="+id;
 		ResultSet result = connect.createStatement().executeQuery(query);
 		result.first();
 		int count = result.getInt(1);
 		connect.close();
-		return count+"";
+		return count;
 	}
 
 	public void updatePlayerPoints(Player player) throws Exception {
@@ -201,14 +203,14 @@ public class DataHandler {
 		connect.close();
 	}
 	
-	public String getNumberOfReviewsWaitingByPlayer(int id) throws Exception {
+	public int getNumberOfReviewsWaitingByPlayer(int id) throws Exception {
 		connect();
 		String query = "SELECT count(*) FROM segments_for_review WHERE player_id ="+id;
 		ResultSet result = connect.createStatement().executeQuery(query);
 		result.first();
 		int count = result.getInt(1);
 		connect.close();
-		return count+"";
+		return count;
 	}
 	
 	public Review[] getReviewsBySegmentsWriter(Player player) throws Exception{
@@ -320,5 +322,41 @@ public class DataHandler {
 			temp.add(new Player(result.getInt(1), result.getString(2), result.getInt(3)));
 		}
 		return temp;
+	}
+	
+	public int getAverageScoreRecievedByPlayer(Player p) throws Exception{
+		connect();
+		String query = "SELECT AVG(score) FROM segments s, reviews r WHERE s.player_id="+p.getId()+" AND s.review_id NOT null AND s.s_id = r.segment_id;";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(result.first())
+			return result.getInt(1);
+		throw new Exception("getAverageScoreRecievedByPlayer: No Scores!");
+	}
+	
+	public int getAverageScoreGivenByPlayer(Player p) throws Exception{
+		connect();
+		String query = "SELECT AVG(score) FROM reviews WHERE player_id="+p.getId()+";";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(result.first())
+			return result.getInt(1);
+		throw new Exception("getAverageScoreGivenByPlayer: No Scores!");
+	}
+	
+	public int getNumberOfReviewsRecievedByPlayer(Player p) throws Exception{
+		connect();
+		String query = "SELECT COUNT(*) FROM segments WHERE player_id="+p.getId()+" review_id NOT null;";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(result.first())
+			return result.getInt(1);
+		throw new Exception("getNumberOfReviewsRecievedByPlayer: No Reviews Found!");
+	}
+	
+	public float getAverageNumverOfWordsInReview(Player p) throws Exception{
+		connect();
+		String query = "SELECT AVG(words_in_review) FROM reviews WHERE player_id="+p.getId()+";";
+		ResultSet result = connect.createStatement().executeQuery(query);
+		if(result.first())
+			return result.getFloat(1);
+		throw new Exception("getAverageNumverOfWordsInReview: Error getting data!");
 	}
 }

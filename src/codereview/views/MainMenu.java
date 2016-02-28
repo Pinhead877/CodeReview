@@ -115,7 +115,7 @@ public class MainMenu extends CR_Composite{
 			public void widgetSelected(SelectionEvent e) {
 				try {
 					final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport().createBrowser("CodeReview");
-					browser.openURL(new URL("http://localhost/codereview/search.php?q="+text.getText()));
+					browser.openURL(new URL("http://" + Cons.PATH_TO_SERVER + "/codereview/search.php?q="+text.getText()));
 				} catch (PartInitException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

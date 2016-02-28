@@ -31,6 +31,7 @@ public class MainScreen extends ViewPart {
 	public static SegmentReviewView segmentReviewView;
 	public static ProfileScreen profileScreen;
 	public static HallOfFame hallOfFame;
+	public static StatsScreen stats;
 	
 	public static Composite mainScreen;
 	
@@ -101,6 +102,12 @@ public class MainScreen extends ViewPart {
 		reviewsListScreen = new SegmentsForReviewList(mainScreen, SWT.NONE, player, lastScreen);
 		reviewsListScreen.setBounds(0, 169, 236, 368);
 		reviewsListScreen.setVisible(true);
+	}
+	
+	public static void initializeStatsScreen(){
+		stats = new StatsScreen(mainScreen, SWT.NONE, player);
+		stats.setBounds(0, 169, 236, 368);
+		stats.setVisible(true);
 	}
 	
 	public static Player getPlayer() {
