@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import classes.Cons;
 import classes.Player;
 import codereview.data.DataHandler;
 
@@ -24,9 +25,9 @@ public class HallOfFame extends Composite {
 	private static final Point NUM_START = new Point(10, 46);
 	private static final Point NAME_START = new Point(NUM_START.x+NUM_LABEL_SIZE+GAP, NUM_START.y);
 	
-	private Label[] numLabels = new Label[11];
-	private Label[] nameLabels = new Label[11];
-	private Label[] pointsLabels = new Label[11];
+	private Label[] numLabels = new Label[Cons.NUM_PLAYERS_IN_HALL_OF_FAME];
+	private Label[] nameLabels = new Label[Cons.NUM_PLAYERS_IN_HALL_OF_FAME];
+	private Label[] pointsLabels = new Label[Cons.NUM_PLAYERS_IN_HALL_OF_FAME];
 	
 	public HallOfFame(Composite parent, int style) {
 		super(parent, style);

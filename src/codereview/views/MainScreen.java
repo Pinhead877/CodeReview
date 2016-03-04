@@ -120,7 +120,7 @@ public class MainScreen extends ViewPart {
 			initializeLoginScreen();
 			return;
 		}
-		player = new DataHandler().loadPlayer(userDetails[MAIL], userDetails[PASSWORD]);
+		setPlayer(new DataHandler().loadPlayer(userDetails[MAIL], userDetails[PASSWORD]));
 		if(player==null){
 			initializeLoginScreen();
 			return;
@@ -146,6 +146,13 @@ public class MainScreen extends ViewPart {
 	}
 
 	public static void setPlayer(Player player) {
+		try {
+			if(player!=null)
+				handler.updateLogin(player);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		MainScreen.player = player;
 	}
 	

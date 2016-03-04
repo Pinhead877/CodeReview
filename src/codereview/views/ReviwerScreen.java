@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -48,6 +50,7 @@ public class ReviwerScreen extends CR_Composite {
 
 		starRating = new StarRating(this, SWT.NONE);
 		starRating.setBounds(10, 208, 226, 25);
+		starRating.setSelection(0);
 
 		Button backBtn = new Button(this, SWT.NONE);
 		backBtn.addSelectionListener(new SelectionAdapter() {
@@ -84,7 +87,7 @@ public class ReviwerScreen extends CR_Composite {
 					final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport()
 							.createBrowser("CodeReview");
 					browser.openURL(
-							new URL("http://" + Cons.PATH_TO_SERVER + "/codereview/segment.php?sid=" + seg.getSegId()));
+							new URL("http://" + Cons.PATH_TO_SERVER + "/codereview/segmentView.php?sid=" + seg.getSegId()));
 				} catch (PartInitException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -103,10 +106,16 @@ public class ReviwerScreen extends CR_Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
-					new DataHandler().saveReview(seg.getSegId(), starRating.getSelection(), reviewText.getText(),
-							player.getId());
-					MainScreen.updatePlayerPoints(player, Points.POINTS_FOR_CREATING_NEW_REVIEW);
-					goBackToMainMenu();
+					if(!reviewText.getText().equals("") && starRating.getSelection()>0){
+						new DataHandler().saveReview(seg.getSegId(), starRating.getSelection(), reviewText.getText(),
+								player.getId());
+						MainScreen.updatePlayerPoints(player, Points.POINTS_FOR_CREATING_NEW_REVIEW);
+						goBackToMainMenu();
+					}else if(starRating.getSelection()==0){
+						JOptionPane.showMessageDialog(null, "Please set your score for this code.", "Fill all the fields", JOptionPane.ERROR_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null, "Please write your review about the code.", "Fill all the fields", JOptionPane.ERROR_MESSAGE);
+					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

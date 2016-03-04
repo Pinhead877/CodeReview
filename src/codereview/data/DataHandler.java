@@ -321,30 +321,32 @@ public class DataHandler {
 		while(result.next()){
 			temp.add(new Player(result.getInt(1), result.getString(2), result.getInt(3)));
 		}
+		connect.close();
 		return temp;
 	}
 	
-	public int getAverageScoreRecievedByPlayer(Player p) throws Exception{
+	public float getAverageScoreRecievedByPlayer(Player p) throws Exception{
 		connect();
-		String query = "SELECT AVG(score) FROM segments s, reviews r WHERE s.player_id="+p.getId()+" AND s.review_id NOT null AND s.s_id = r.segment_id;";
+		String query = "SELECT AVG(score) FROM segments as s, reviews as r WHERE s.player_id="+p.getId()+" AND s.review_id IS NOT NULL AND s.s_id = r.segment_id;";
 		ResultSet result = connect.createStatement().executeQuery(query);
 		if(result.first())
-			return result.getInt(1);
+			return result.getFloat(1);
+		connect.close();
 		throw new Exception("getAverageScoreRecievedByPlayer: No Scores!");
 	}
 	
-	public int getAverageScoreGivenByPlayer(Player p) throws Exception{
+	public float getAverageScoreGivenByPlayer(Player p) throws Exception{
 		connect();
 		String query = "SELECT AVG(score) FROM reviews WHERE player_id="+p.getId()+";";
 		ResultSet result = connect.createStatement().executeQuery(query);
 		if(result.first())
-			return result.getInt(1);
+			return result.getFloat(1);
 		throw new Exception("getAverageScoreGivenByPlayer: No Scores!");
 	}
 	
 	public int getNumberOfReviewsRecievedByPlayer(Player p) throws Exception{
 		connect();
-		String query = "SELECT COUNT(*) FROM segments WHERE player_id="+p.getId()+" review_id NOT null;";
+		String query = "SELECT COUNT(*) FROM segments WHERE player_id="+p.getId()+" AND review_id IS NOT NULL;";
 		ResultSet result = connect.createStatement().executeQuery(query);
 		if(result.first())
 			return result.getInt(1);
@@ -358,5 +360,12 @@ public class DataHandler {
 		if(result.first())
 			return result.getFloat(1);
 		throw new Exception("getAverageNumverOfWordsInReview: Error getting data!");
+	}
+	
+	public void updateLogin(Player p) throws Exception{
+		connect();
+		String query = "UPDATE players SET times_login = times_login + 1 WHERE p_id="+p.getId();
+		connect.createStatement().executeUpdate(query);
+		connect.close();
 	}
 }

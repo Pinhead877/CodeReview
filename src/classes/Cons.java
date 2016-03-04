@@ -24,6 +24,8 @@ public final class Cons {
 	public static final int PREVIEW_SEGMENT_SCREEN = 20;
 	public static final int PREVIEW_REVIEW_SCREEN = 21;
 	public static final int LOGIN_SCREEN = 22;
+
+	public static final int NUM_PLAYERS_IN_HALL_OF_FAME = 11;
 	
 	public static float calcWordsInSentence(String review) {
 		String [] words = review.split(" ");

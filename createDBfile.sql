@@ -16,38 +16,39 @@ CREATE TABLE IF NOT EXISTS teams (
     PRIMARY KEY (t_id)
 );
 CREATE TABLE IF NOT EXISTS players (
-    p_id INT NOT NULL AUTO_INCREMENT,	#1
-    p_name NVARCHAR(50) NOT NULL,		#2
-    p_points INT DEFAULT 0,				#3
-    team_id INT, 						#4
-    is_reviewer bool default false,		#5
-    mail NVARCHAR(50) NOT NULL,			#6
-    u_password NVARCHAR(16) NOT NULL,	#7
+    p_id INT NOT NULL AUTO_INCREMENT,
+    p_name NVARCHAR(50) NOT NULL,
+    p_points INT DEFAULT 0,
+    team_id INT,
+    is_reviewer BOOL DEFAULT FALSE,
+    mail NVARCHAR(50) NOT NULL,
+    u_password NVARCHAR(16) NOT NULL,
+    times_login INT DEFAULT 0,
     PRIMARY KEY (p_id)
 );
 CREATE TABLE IF NOT EXISTS segments (
-    s_id INT NOT NULL AUTO_INCREMENT,	#1
-    player_id INT NOT NULL,				#2
-    code_text NVARCHAR(500) NOT NULL,	#3
-    comment_text NVARCHAR(500),			#4
-    review_id INT,						#5
+    s_id INT NOT NULL AUTO_INCREMENT,
+    player_id INT NOT NULL,
+    code_text NVARCHAR(500) NOT NULL,
+    comment_text NVARCHAR(500),
+    review_id INT,
     PRIMARY KEY (s_id)
 );
 CREATE TABLE IF NOT EXISTS reviews (
-    r_id INT NOT NULL AUTO_INCREMENT,	#1
-    segment_id INT NOT NULL,			#2
-    score INT NOT NULL,					#3
-    review_text NVARCHAR(500),			#4
-    player_id INT NOT NULL,				#5
-    is_read bool default false,			#6
-    words_in_review FLOAT,				#7
+    r_id INT NOT NULL AUTO_INCREMENT,
+    segment_id INT NOT NULL,
+    score INT NOT NULL,
+    review_text NVARCHAR(500),
+    player_id INT NOT NULL,
+    is_read BOOL DEFAULT FALSE,
+    words_in_review FLOAT,
     PRIMARY KEY (r_id)
 );
-CREATE TABLE IF NOT EXISTS segments_for_review(
-	id int not null auto_increment,
-	player_id int not null,
-    segment_id int not null,
-    primary key(id)
+CREATE TABLE IF NOT EXISTS segments_for_review (
+    id INT NOT NULL AUTO_INCREMENT,
+    player_id INT NOT NULL,
+    segment_id INT NOT NULL,
+    PRIMARY KEY (id)
 );
 
 INSERT INTO `codereviewdb`.`teams`
@@ -59,9 +60,9 @@ VALUES
 INSERT INTO `codereviewdb`.`players`
 (`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("test",1,true,"test",1234);
+("Alex",1,true,"alex",1234);
 
 INSERT INTO `codereviewdb`.`players`
 (`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("test2",1,true,"test2",1234);
+("Alexander",1,true,"alex2",1234);

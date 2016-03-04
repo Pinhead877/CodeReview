@@ -49,6 +49,7 @@ public class StatsScreen extends Composite {
 		try {
 			segWroteNum.setText(""+new  DataHandler().getNumberOfSegmentsByPlayer(player.getId()));
 		} catch (Exception e) {
+			e.printStackTrace();
 			segWroteNum.setText("NA");
 		}
 		
@@ -75,6 +76,8 @@ public class StatsScreen extends Composite {
 			revRecvNum.setText(""+new DataHandler().getNumberOfReviewsRecievedByPlayer(player));
 		} catch (Exception e1) {
 			revRecvNum.setText("NA");
+			e1.printStackTrace();
+
 		}
 		revRecvNum.setBounds(174, 88, 55, 15);
 		
@@ -85,10 +88,10 @@ public class StatsScreen extends Composite {
 		Label avgWordsRevNum = new Label(this, SWT.NONE);
 		avgWordsRevNum.setAlignment(SWT.RIGHT);
 		try {
-			avgWordsRevNum.setText(""+new DataHandler().getAverageNumverOfWordsInReview(player));
+			avgWordsRevNum.setText(String.format("%.2f", new DataHandler().getAverageNumverOfWordsInReview(player)));
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			avgWordsRevNum.setText("NA");
+			e1.printStackTrace();
 		}
 		avgWordsRevNum.setBounds(174, 109, 55, 15);
 		
@@ -99,8 +102,9 @@ public class StatsScreen extends Composite {
 		Label avgScoreRcvNum = new Label(this, SWT.NONE);
 		avgScoreRcvNum.setAlignment(SWT.RIGHT);
 		try {
-			avgScoreRcvNum.setText(""+new DataHandler().getAverageScoreRecievedByPlayer(player));
+			avgScoreRcvNum.setText(String.format("%.2f", new DataHandler().getAverageScoreRecievedByPlayer(player)));
 		} catch (Exception e) {
+			e.printStackTrace();
 			avgScoreRcvNum.setText("NA");
 		}
 		avgScoreRcvNum.setBounds(174, 130, 55, 15);
@@ -112,8 +116,9 @@ public class StatsScreen extends Composite {
 		Label avgScoreGivNum = new Label(this, SWT.NONE);
 		avgScoreGivNum.setAlignment(SWT.RIGHT);
 		try {
-			avgScoreGivNum.setText(""+new DataHandler().getAverageScoreGivenByPlayer(player));
+			avgScoreGivNum.setText(String.format("%.2f", new DataHandler().getAverageScoreGivenByPlayer(player)));
 		} catch (Exception e) {
+			e.printStackTrace();
 			avgScoreGivNum.setText("NA");
 		}
 		avgScoreGivNum.setBounds(174, 151, 55, 15);
