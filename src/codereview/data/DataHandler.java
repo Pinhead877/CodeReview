@@ -55,7 +55,6 @@ public class DataHandler {
 	}
 
 	public void sendSegment(Player player, String code, String comment) throws Exception {
-		System.out.println("ID of the sender: " + player.getId());
 		int reviewer = getReviewerForSegment(player.getId());
 		int segmentId = saveSegmentAndGetID(player, code, comment);
 		connect();
@@ -163,7 +162,7 @@ public class DataHandler {
 		connect();
 		float wordsInReview = Cons.calcWordsInSentence(review);
 		String query = "INSERT INTO reviews(segment_id, score, review_text, player_id, words_in_review)"+
-		"VALUES("+segId+", "+score+", '"+review+"', "+reviewerId+", "+wordsInReview+");";
+				"VALUES("+segId+", "+score+", '"+review+"', "+reviewerId+", "+wordsInReview+");";
 		java.sql.Statement statement = connect.createStatement();
 		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		ResultSet result = statement.getGeneratedKeys();
@@ -185,7 +184,7 @@ public class DataHandler {
 		connect.close();
 		return count;
 	}
-	
+
 	public int getNumberOfReviewsByPlayer(int id) throws Exception {
 		connect();
 		String query = "SELECT count(*) FROM reviews WHERE player_id ="+id;
@@ -202,7 +201,7 @@ public class DataHandler {
 		connect.createStatement().executeUpdate(query);
 		connect.close();
 	}
-	
+
 	public int getNumberOfReviewsWaitingByPlayer(int id) throws Exception {
 		connect();
 		String query = "SELECT count(*) FROM segments_for_review WHERE player_id ="+id;
@@ -212,11 +211,11 @@ public class DataHandler {
 		connect.close();
 		return count;
 	}
-	
+
 	public Review[] getReviewsBySegmentsWriter(Player player) throws Exception{
 		connect();
 		String query = "SELECT r.r_id, s.s_id, r.score, r.review_text, r.is_read FROM segments s, reviews r"+
-		"WHERE s.s_id = r.segment_id AND s.player_id = "+player.getId();
+				"WHERE s.s_id = r.segment_id AND s.player_id = "+player.getId();
 		ResultSet result = connect.createStatement().executeQuery(query);
 		ArrayList<Review> reviews = new ArrayList<Review>();
 		while(result.next()){
@@ -225,7 +224,7 @@ public class DataHandler {
 		connect.close();
 		return (Review[]) reviews.toArray();
 	}
-	
+
 	public Segment getSegmentById(int id, Player player) throws Exception{
 		connect();
 		String query = "SELECT * FROM segments WHERE s_id = "+id+";";
@@ -238,7 +237,7 @@ public class DataHandler {
 		connect.close();
 		return seg;
 	}
-	
+
 	public Segment getSegmentById(int id) throws Exception{
 		connect();
 		String query = "SELECT * FROM segments WHERE s_id = "+id+";";
@@ -251,7 +250,7 @@ public class DataHandler {
 		connect.close();
 		return seg;
 	}
-	
+
 	public Segment[] getSegmentsByPlayer(Player player) throws Exception{
 		connect();
 		String query = "SELECT count(*) FROM segments WHERE player_id="+player.getId()+";";
@@ -266,7 +265,7 @@ public class DataHandler {
 		while(result.next()){
 			Review rev = null;
 			if(result.getInt(5)==0){
-				rev = new Review(0,null, "Waiting for Review...", 0, false);
+				rev = new Review(-1,null, "Waiting for Review...", 0, false);
 			}else{
 				rev = getReviewById(result.getInt(5));
 			}
@@ -275,7 +274,7 @@ public class DataHandler {
 		connect.close();
 		return list;
 	}
-	
+
 	private Review getReviewById(int segId) throws Exception {
 		connect();
 		String query = "SELECT * FROM reviews WHERE segment_id = "+segId+";";
@@ -324,7 +323,7 @@ public class DataHandler {
 		connect.close();
 		return temp;
 	}
-	
+
 	public float getAverageScoreRecievedByPlayer(Player p) throws Exception{
 		connect();
 		String query = "SELECT AVG(score) FROM segments as s, reviews as r WHERE s.player_id="+p.getId()+" AND s.review_id IS NOT NULL AND s.s_id = r.segment_id;";
@@ -334,38 +333,71 @@ public class DataHandler {
 		connect.close();
 		throw new Exception("getAverageScoreRecievedByPlayer: No Scores!");
 	}
-	
+
 	public float getAverageScoreGivenByPlayer(Player p) throws Exception{
 		connect();
 		String query = "SELECT AVG(score) FROM reviews WHERE player_id="+p.getId()+";";
 		ResultSet result = connect.createStatement().executeQuery(query);
+		float resultNum;
 		if(result.first())
-			return result.getFloat(1);
-		throw new Exception("getAverageScoreGivenByPlayer: No Scores!");
+			resultNum = result.getFloat(1);
+		else{
+			connect.close();
+			throw new Exception("getAverageScoreGivenByPlayer: No Scores!");
+		}
+		connect.close();
+		return resultNum;
 	}
-	
+
 	public int getNumberOfReviewsRecievedByPlayer(Player p) throws Exception{
 		connect();
 		String query = "SELECT COUNT(*) FROM segments WHERE player_id="+p.getId()+" AND review_id IS NOT NULL;";
 		ResultSet result = connect.createStatement().executeQuery(query);
+		int resultNum;
 		if(result.first())
-			return result.getInt(1);
-		throw new Exception("getNumberOfReviewsRecievedByPlayer: No Reviews Found!");
+			resultNum = result.getInt(1);
+		else{
+			connect.close();
+			throw new Exception("getNumberOfReviewsRecievedByPlayer: No Reviews Found!");
+		}
+		connect.close();
+		return resultNum;
 	}
-	
+
 	public float getAverageNumverOfWordsInReview(Player p) throws Exception{
 		connect();
 		String query = "SELECT AVG(words_in_review) FROM reviews WHERE player_id="+p.getId()+";";
 		ResultSet result = connect.createStatement().executeQuery(query);
+		float resultNum;
 		if(result.first())
-			return result.getFloat(1);
-		throw new Exception("getAverageNumverOfWordsInReview: Error getting data!");
+			resultNum = result.getFloat(1);
+		else{
+			connect.close();
+			throw new Exception("getAverageNumverOfWordsInReview: Error getting data!");
+		}
+		connect.close();
+		return resultNum;
 	}
-	
+
 	public void updateLogin(Player p) throws Exception{
 		connect();
 		String query = "UPDATE players SET times_login = times_login + 1 WHERE p_id="+p.getId();
 		connect.createStatement().executeUpdate(query);
 		connect.close();
+	}
+
+	public int getNumberOfTimesLogin(Player p) throws Exception{
+		connect();
+		String query = "SELECT times_login FROM players WHERE p_id="+p.getId();
+		ResultSet result = connect.createStatement().executeQuery(query);
+		int numOfLogin;
+		if(result.first()){
+			numOfLogin = result.getInt(1);
+		}else{
+			connect.close();
+			throw new Exception("getNumberOfTimesLogin: No data in tables!");
+		}
+		connect.close();
+		return numOfLogin;
 	}
 }

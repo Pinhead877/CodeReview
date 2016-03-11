@@ -5,14 +5,15 @@
 ## Password: monkey36more		##
 ##################################
 
-create schema if not exists codereviewdb;
+CREATE schema if not exists codereviewdb;
 
-use codereviewdb;
+USE codereviewdb;
 
 CREATE TABLE IF NOT EXISTS teams (
     t_id INT NOT NULL AUTO_INCREMENT,
     t_name NVARCHAR(50) NOT NULL,
     t_points INT DEFAULT 0,
+    create_date DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (t_id)
 );
 CREATE TABLE IF NOT EXISTS players (
@@ -24,6 +25,7 @@ CREATE TABLE IF NOT EXISTS players (
     mail NVARCHAR(50) NOT NULL,
     u_password NVARCHAR(16) NOT NULL,
     times_login INT DEFAULT 0,
+    create_date DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (p_id)
 );
 CREATE TABLE IF NOT EXISTS segments (
@@ -32,16 +34,18 @@ CREATE TABLE IF NOT EXISTS segments (
     code_text NVARCHAR(500) NOT NULL,
     comment_text NVARCHAR(500),
     review_id INT,
+    create_date DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (s_id)
 );
 CREATE TABLE IF NOT EXISTS reviews (
-    r_id INT NOT NULL AUTO_INCREMENT,
-    segment_id INT NOT NULL,
-    score INT NOT NULL,
-    review_text NVARCHAR(500),
-    player_id INT NOT NULL,
-    is_read BOOL DEFAULT FALSE,
-    words_in_review FLOAT,
+    r_id INT NOT NULL AUTO_INCREMENT,				#1
+    segment_id INT NOT NULL,						#2
+    score INT NOT NULL,								#3
+    review_text NVARCHAR(500),						#4
+    player_id INT NOT NULL,							#5
+    is_read BOOL DEFAULT FALSE,						#6
+    words_in_review FLOAT,							#7
+    create_date DATETIME NOT NULL DEFAULT NOW(),	#8
     PRIMARY KEY (r_id)
 );
 CREATE TABLE IF NOT EXISTS segments_for_review (

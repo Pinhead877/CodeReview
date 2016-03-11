@@ -122,6 +122,20 @@ public class StatsScreen extends Composite {
 			avgScoreGivNum.setText("NA");
 		}
 		avgScoreGivNum.setBounds(174, 151, 55, 15);
+		
+		Label timesLoggedLabel = new Label(this, SWT.NONE);
+		timesLoggedLabel.setText("Times Logged-In:");
+		timesLoggedLabel.setBounds(10, 172, 140, 15);
+		
+		Label timesLoggedNum = new Label(this, SWT.NONE);
+		try {
+			timesLoggedNum.setText(""+ new DataHandler().getNumberOfTimesLogin(player));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			timesLoggedNum.setText("NA");
+		}
+		timesLoggedNum.setAlignment(SWT.RIGHT);
+		timesLoggedNum.setBounds(174, 172, 55, 15);
 
 	}
 
