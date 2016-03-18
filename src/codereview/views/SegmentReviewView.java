@@ -21,6 +21,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import classes.Cons;
 import classes.Review;
 import classes.Segment;
+import codereview.data.DataHandler;
 import codereview.viewsoverride.CR_Composite;
 
 public class SegmentReviewView extends CR_Composite{
@@ -44,11 +45,21 @@ public class SegmentReviewView extends CR_Composite{
 		if(seg==null){
 			seg = rev.getSeg();
 		}else{
-			rev = seg.getReview();
+			try {
+				if(new DataHandler().checkIfSegmentHasReviews(seg)){
+					rev = new Review(-2,seg, "Multiple Reviews!\nDouble Click here to see all reviews.", 0, false);
+					rev.setScore(new DataHandler().getAvgScoreOfSeg(seg));
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				rev = new Review(-1,seg, "Error: getting reviews...", 0, false);
+			}
 		}
 
 		segment = seg;
 		review = rev;
+		
+		System.out.println(review);
 
 		Label headerLbl = new Label(this, SWT.BORDER);
 		headerLbl.setText(screenName+" View");
@@ -139,7 +150,7 @@ public class SegmentReviewView extends CR_Composite{
 						final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport()
 								.createBrowser("CodeReview");
 						browser.openURL(
-								new URL("http://" + Cons.PATH_TO_SERVER + "/codereview/reviewView.php?rid=" + review.getRevId()));
+								new URL("http://" + Cons.PATH_TO_SERVER + "/codereview/reviewView.php?sid=" + segment.getSegId()));
 					} catch (PartInitException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS segments (
     player_id INT NOT NULL,
     code_text NVARCHAR(500) NOT NULL,
     comment_text NVARCHAR(500),
-    review_id INT,
+ #   review_id INT,
     create_date DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (s_id)
 );
@@ -70,3 +70,28 @@ INSERT INTO `codereviewdb`.`players`
 (`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
 VALUES
 ("Alexander",1,true,"alex2",1234);
+
+INSERT INTO `codereviewdb`.`players`
+(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+VALUES
+("Alex1",1,true,"alex3",1234);
+
+INSERT INTO `codereviewdb`.`players`
+(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+VALUES
+("Alex2",1,true,"alex4",1234);
+
+INSERT INTO `codereviewdb`.`players`
+(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+VALUES
+("Alex3",1,true,"alex5",1234);
+
+INSERT INTO `codereviewdb`.`players`
+(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+VALUES
+("Alex4",1,true,"alex6",1234);
+
+INSERT INTO `codereviewdb`.`players`
+(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+VALUES
+("Alex5",1,true,"alex7",1234);

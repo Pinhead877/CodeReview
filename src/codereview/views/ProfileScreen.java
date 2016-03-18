@@ -51,6 +51,7 @@ public class ProfileScreen extends Composite {
 		});
 		
 		Button btnAchievements = new Button(this, SWT.NONE);
+		btnAchievements.setEnabled(false);
 		btnAchievements.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
 		btnAchievements.setText("Achievements");
 		btnAchievements.setBounds(127, 112, 102, 35);
@@ -73,6 +74,11 @@ public class ProfileScreen extends Composite {
 		welcomeLbl.setAlignment(SWT.CENTER);
 		welcomeLbl.setBounds(10, 57, 219, 30);
 		welcomeLbl.setText("Hi "+player.getName()+"!");
+		
+		Button avatarButton = new Button(this, SWT.NONE);
+		avatarButton.setText("Avatar");
+		avatarButton.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		avatarButton.setBounds(127, 153, 102, 35);
 		
 	}
 
