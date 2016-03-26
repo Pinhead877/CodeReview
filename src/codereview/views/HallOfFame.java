@@ -83,7 +83,6 @@ public class HallOfFame extends Composite {
 				} catch (Exception e1) {
 					nameLabels[i].setText("-- --");
 					pointsLabels[i].setText(":(");
-					e1.printStackTrace();
 				}
 				y+=NAME_LABEL_HEIGHT+GAP;
 			}

@@ -75,10 +75,17 @@ public class ProfileScreen extends Composite {
 		welcomeLbl.setBounds(10, 57, 219, 30);
 		welcomeLbl.setText("Hi "+player.getName()+"!");
 		
-		Button avatarButton = new Button(this, SWT.NONE);
-		avatarButton.setText("Avatar");
-		avatarButton.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		avatarButton.setBounds(127, 153, 102, 35);
+		Button settingsBtn = new Button(this, SWT.NONE);
+		settingsBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				setVisible(false);
+				MainScreen.initializeProfileSettingsScreen();
+			}
+		});
+		settingsBtn.setText("Settings");
+		settingsBtn.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		settingsBtn.setBounds(127, 153, 102, 35);
 		
 	}
 

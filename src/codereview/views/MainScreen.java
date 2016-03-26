@@ -32,6 +32,7 @@ public class MainScreen extends ViewPart {
 	public static ProfileScreen profileScreen;
 	public static HallOfFame hallOfFame;
 	public static StatsScreen stats;
+	public static ProfileSettingsScreen profileSettings;
 	
 	public static Composite mainScreen;
 	
@@ -183,5 +184,11 @@ public class MainScreen extends ViewPart {
 		hallOfFame = new HallOfFame(mainScreen, SWT.NONE);
 		hallOfFame.setVisible(true);
 		hallOfFame.setBounds(0, 0, 246, 540);		
+	}
+	
+	public static void initializeProfileSettingsScreen(){
+		profileSettings = new ProfileSettingsScreen(mainScreen, SWT.NONE, player);
+		profileSettings.setBounds(0, 169, 236, 368);
+		profileSettings.setVisible(true);
 	}
 }

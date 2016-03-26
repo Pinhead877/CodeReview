@@ -9,23 +9,24 @@ CREATE schema if not exists codereviewdb;
 
 USE codereviewdb;
 
-CREATE TABLE IF NOT EXISTS teams (
-    t_id INT NOT NULL AUTO_INCREMENT,
-    t_name NVARCHAR(50) NOT NULL,
-    t_points INT DEFAULT 0,
-    create_date DATETIME NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (t_id)
-);
+-- CREATE TABLE IF NOT EXISTS teams (
+--     t_id INT NOT NULL AUTO_INCREMENT,
+--     t_name NVARCHAR(50) NOT NULL,
+--     t_points INT DEFAULT 0,
+--     create_date DATETIME NOT NULL DEFAULT NOW(),
+--     PRIMARY KEY (t_id)
+-- );
 CREATE TABLE IF NOT EXISTS players (
-    p_id INT NOT NULL AUTO_INCREMENT,
-    p_name NVARCHAR(50) NOT NULL,
-    p_points INT DEFAULT 0,
-    team_id INT,
-    is_reviewer BOOL DEFAULT FALSE,
-    mail NVARCHAR(50) NOT NULL,
-    u_password NVARCHAR(16) NOT NULL,
-    times_login INT DEFAULT 0,
-    create_date DATETIME NOT NULL DEFAULT NOW(),
+    p_id INT NOT NULL AUTO_INCREMENT,					#1
+    p_name NVARCHAR(50) NOT NULL,						#2
+    p_points INT DEFAULT 0,								#3
+ #   team_id INT,
+    is_reviewer BOOL DEFAULT TRUE,						#4
+    mail NVARCHAR(50) NOT NULL,							#5
+    u_password NVARCHAR(16) NOT NULL,					#6
+    times_login INT DEFAULT 0,							#7
+    image NVARCHAR(25) NOT NULL DEFAULT "default",	#8
+    create_date DATETIME NOT NULL DEFAULT NOW(),		#9
     PRIMARY KEY (p_id)
 );
 CREATE TABLE IF NOT EXISTS segments (
@@ -55,43 +56,43 @@ CREATE TABLE IF NOT EXISTS segments_for_review (
     PRIMARY KEY (id)
 );
 
-INSERT INTO `codereviewdb`.`teams`
-(`t_name`)
-VALUES
-("Name");
+-- INSERT INTO `codereviewdb`.`teams`
+-- (`t_name`)
+-- VALUES
+-- ("Name");
 
 
 INSERT INTO `codereviewdb`.`players`
-(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+(`p_name`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("Alex",1,true,"alex",1234);
+("Alex",true,"alex",1234);
 
 INSERT INTO `codereviewdb`.`players`
-(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+(`p_name`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("Alexander",1,true,"alex2",1234);
+("Alexander",true,"alex2",1234);
 
 INSERT INTO `codereviewdb`.`players`
-(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+(`p_name`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("Alex1",1,true,"alex3",1234);
+("Alex1",true,"alex3",1234);
 
 INSERT INTO `codereviewdb`.`players`
-(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+(`p_name`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("Alex2",1,true,"alex4",1234);
+("Alex2",true,"alex4",1234);
 
 INSERT INTO `codereviewdb`.`players`
-(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+(`p_name`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("Alex3",1,true,"alex5",1234);
+("Alex3",true,"alex5",1234);
 
 INSERT INTO `codereviewdb`.`players`
-(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+(`p_name`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("Alex4",1,true,"alex6",1234);
+("Alex4",true,"alex6",1234);
 
 INSERT INTO `codereviewdb`.`players`
-(`p_name`,`team_id`,`is_reviewer`,`mail`,`u_password`)
+(`p_name`,`is_reviewer`,`mail`,`u_password`)
 VALUES
-("Alex5",1,true,"alex7",1234);
+("Alex5",true,"alex7",1234);

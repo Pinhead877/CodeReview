@@ -5,52 +5,56 @@ import java.util.ArrayList;
 public class Player implements Comparable<Player>{
 	private int id;
 	private String name;
-	private Team team;
+	//	private Team team;
 	private int points;
 	private String imagePath;
 	private String mail;
 	private boolean reviewer;
-	
+
 	private ArrayList<Segment> segmentsPublished;
 	private ArrayList<Review> reviewsWrote;
-	
-	public Player(String name){
-		this.name = name;
-	}
-	
-	public Player(int id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-	
+
+//	public Player(String name){
+//		this.name = name;
+//	}
+//
+//	public Player(int id, String name) {
+//		this.id = id;
+//		this.name = name;
+//	}
+//
 	public Player(int id, String name, int points){
-		this(name,null,points,null,null);
-		this.id = id;
+		this(id,name,points,null,null, true);
 	}
-	
-	public Player(String name, Team team, int points, String image, String mail){
-		this.name = name;
-		this.team = team;
-		this.points = points;
-		this.imagePath = image;
-		this.mail = mail;
-	}
-	
-	public Player(int id, String name, Team team, int points, String image, String mail, boolean reviewer){
+
+	//	public Player(String name, Team team, int points, String image, String mail){
+//	public Player(String name, int points, String image, String mail){
+//		this.name = name;
+//		//		this.team = team;
+//		this.points = points;
+//		this.imagePath = image;
+//		this.mail = mail;
+//	}
+
+	//	public Player(int id, String name, Team team, int points, String image, String mail, boolean reviewer){
+	public Player(int id, String name, int points, String image, String mail, boolean reviewer){
+
 		this.id = id;
 		this.name = name;
-		this.team = team;
+		//		this.team = team;
 		this.points = points;
 		this.imagePath = image;
 		this.mail = mail;
 		this.reviewer = reviewer;
 	}
 
-	public Player(String name, Team team, String mail) {
-		this.name = name;
-		this.team = team;
-		this.mail = mail;
-	}
+//	public Player(String name, Team team, String mail) {
+//		public Player(String name, String mail) {
+//
+//		this.name = name;
+//		//		this.team = team;
+//		this.mail = mail;
+//	}
 
 	public String getName() {
 		return name;
@@ -58,12 +62,12 @@ public class Player implements Comparable<Player>{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Team getTeam() {
-		return team;
-	}
-	public void setTeam(Team team) {
-		this.team = team;
-	}
+	//	public Team getTeam() {
+	//		return team;
+	//	}
+	//	public void setTeam(Team team) {
+	//		this.team = team;
+	//	}
 	public int getPoints() {
 		return points;
 	}
@@ -122,9 +126,9 @@ public class Player implements Comparable<Player>{
 		if(!(o instanceof Player)){
 			throw new ClassCastException("The Object is not of type Player");
 		}
-		
+
 		return o.points-this.points;
 	}
-	
-	
+
+
 }

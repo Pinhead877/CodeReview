@@ -66,18 +66,18 @@ public class DataHandler {
 		connect.close();
 	}
 
-	public int savePlayerAndGetID(Player player, String password) throws Exception {
-		connect();
-		String query = "INSERT INTO players(p_name, team_id, mail, u_password)" + " VALUES('" + player.getName() + "', "
-				+ player.getTeam().getId() + ", '" + player.getMail() + "', '" + password + "');";
-		java.sql.Statement statement = connect.createStatement();
-		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-		ResultSet result = statement.getGeneratedKeys();
-		result.first();
-		int returnedID = result.getInt(1);
-		connect.close();
-		return returnedID;
-	}
+//	public int savePlayerAndGetID(Player player, String password) throws Exception {
+//		connect();
+//		String query = "INSERT INTO players(p_name, team_id, mail, u_password)" + " VALUES('" + player.getName() + "', "
+//				+ player.getTeam().getId() + ", '" + player.getMail() + "', '" + password + "');";
+//		java.sql.Statement statement = connect.createStatement();
+//		statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+//		ResultSet result = statement.getGeneratedKeys();
+//		result.first();
+//		int returnedID = result.getInt(1);
+//		connect.close();
+//		return returnedID;
+//	}
 
 	public int saveTeamAndGetID(Team team) throws Exception {
 		connect();
@@ -151,16 +151,14 @@ public class DataHandler {
 			connect.close();
 			return null;
 		}
-		query = "SELECT * FROM teams WHERE t_id = " + result.getInt("team_id") + ";";
-		ResultSet teamResult = connect.createStatement().executeQuery(query);
-		if (!teamResult.first()) {
-			connect.close();
-			return null;
-		}
-		Team team = new Team(teamResult.getInt("t_id"), teamResult.getString("t_name"), "",
-				teamResult.getInt("t_points"));
-		Player p = new Player(result.getInt("p_id"), result.getString("p_name"), team, result.getInt("p_points"), "",
-				result.getString("mail"), result.getBoolean("is_reviewer"));
+//		query = "SELECT * FROM teams WHERE t_id = " + result.getInt("team_id") + ";";
+//		ResultSet teamResult = connect.createStatement().executeQuery(query);
+//		if (!teamResult.first()) {
+//			connect.close();
+//			return null;
+//		}
+//		Team team = new Team(teamResult.getInt("t_id"), teamResult.getString("t_name"), "", teamResult.getInt("t_points"));
+		Player p = new Player(result.getInt(1), result.getString(2), result.getInt(3), result.getString("image"), result.getString("mail"), result.getBoolean("is_reviewer"));
 		connect.close();
 		return p;
 	}
@@ -441,5 +439,12 @@ public class DataHandler {
 		ResultSet result = connect.createStatement().executeQuery(query);
 		if(result.first()) return (int)result.getFloat(1);
 		throw new Exception("getAvgScoreOfSeg: No Score");
+	}
+	
+	public void updateAvatar(Player player) throws Exception{
+		connect();
+		String query = "UPDATE players SET image = \""+player.getImagePath().toLowerCase()+"\" WHERE p_id="+player.getId()+";";
+		connect.createStatement().executeUpdate(query);
+		connect.close();
 	}
 }

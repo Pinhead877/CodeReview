@@ -25,10 +25,10 @@ public class Team {
 
 
 
-	public void addNewTeamMember(Player player){
-		player.setTeam(this);
-		teamMembers.add(player);
-	}
+//	public void addNewTeamMember(Player player){
+//		player.setTeam(this);
+//		teamMembers.add(player);
+//	}
 
 	public String getName() {
 		return name;
