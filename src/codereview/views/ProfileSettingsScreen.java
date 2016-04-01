@@ -103,9 +103,13 @@ public class ProfileSettingsScreen extends Composite {
 						nameInput.setText("");
 						return;
 					}
-					if(!passInput.getText().equals("")){
-						// TODO finish the password save
+					String tempPass = passInput.getText();
+					if(!tempPass.equals("") && tempPass.length()>=4 && tempPass.length()<=10){
 						MainScreen.handler.updatePassword(player, passInput.getText());
+					}else if((tempPass.length()<4 && !tempPass.equals("")) || tempPass.length()>10){
+						JOptionPane.showMessageDialog(null, "Password must be atleast 4 chars and 10 chars atmost.", "Password Length Error", JOptionPane.ERROR_MESSAGE);
+						passInput.setText("");
+						return;
 					}
 					MainScreen.handler.updateAvatar(player);
 					MainScreen.scoreScreen.setVisible(false);

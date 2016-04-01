@@ -56,9 +56,10 @@ public class ProfileScreen extends Composite {
 		btnAchievements.setText("Achievements");
 		btnAchievements.setBounds(127, 112, 102, 35);
 		
+		
 		Button btnHallOfFame = new Button(this, SWT.NONE);
 		btnHallOfFame.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		btnHallOfFame.setText("Hall Of Fame");
+		btnHallOfFame.setText("Hall of Fame");
 		btnHallOfFame.setBounds(10, 153, 102, 35);
 		btnHallOfFame.addSelectionListener(new SelectionAdapter() {
 			@Override
