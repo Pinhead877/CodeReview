@@ -142,10 +142,8 @@ public class MainMenu extends CR_Composite{
 				browser.openURL(new URL("http://" + Cons.PATH_TO_SERVER + "/codereview/search.php?q="+search));
 			}
 		} catch (PartInitException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

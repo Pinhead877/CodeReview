@@ -89,10 +89,8 @@ public class ReviwerScreen extends CR_Composite {
 					browser.openURL(
 							new URL("http://" + Cons.PATH_TO_SERVER + "/codereview/segmentView.php?sid=" + seg.getSegId()));
 				} catch (PartInitException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (MalformedURLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

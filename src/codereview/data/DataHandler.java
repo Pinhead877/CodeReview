@@ -447,4 +447,18 @@ public class DataHandler {
 		connect.createStatement().executeUpdate(query);
 		connect.close();
 	}
+
+	public void updatePlayerName(Player player) throws Exception {
+		connect();
+		String query = "UPDATE players SET p_name = \""+player.getName()+"\" WHERE p_id = "+player.getId()+";";
+		connect.createStatement().executeUpdate(query);
+		connect.close();
+	}
+
+	public void updatePassword(Player player, String text) throws Exception {
+		connect();
+		String query = "UPDATE players SET u_password = \""+text+"\" WHERE p_id="+player.getId()+";";
+		connect.createStatement().executeUpdate(query);
+		connect.close();
+	}
 }

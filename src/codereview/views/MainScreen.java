@@ -47,7 +47,6 @@ public class MainScreen extends ViewPart {
 		try {
 			handler = new DataHandler();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -143,7 +142,7 @@ public class MainScreen extends ViewPart {
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
+
 	}
 
 	public static void setPlayer(Player player) {
@@ -151,7 +150,6 @@ public class MainScreen extends ViewPart {
 			if(player!=null)
 				handler.updateLogin(player);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		MainScreen.player = player;

@@ -52,7 +52,6 @@ public class LoginScreen extends Composite {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
@@ -76,7 +75,6 @@ public class LoginScreen extends Composite {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			

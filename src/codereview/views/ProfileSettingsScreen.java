@@ -1,5 +1,7 @@
 package codereview.views;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -90,15 +92,26 @@ public class ProfileSettingsScreen extends Composite {
 		saveBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					player.setImagePath(item.getText());
+					String tempName = nameInput.getText();
+					if(!tempName.equals("") && tempName.length()<=10 && tempName.length()>=2){
+						player.setName(tempName);
+						MainScreen.handler.updatePlayerName(player);
+					}else if(tempName.length()>10 || (tempName.length()<3 && !tempName.equals(""))){
+						JOptionPane.showMessageDialog(null, "Name must be atleast 2 chars and 10 chars atmost.", "Name Length Error", JOptionPane.ERROR_MESSAGE);
+						nameInput.setText("");
+						return;
+					}
+					if(!passInput.getText().equals("")){
+						// TODO finish the password save
+						MainScreen.handler.updatePassword(player, passInput.getText());
+					}
 					MainScreen.handler.updateAvatar(player);
 					MainScreen.scoreScreen.setVisible(false);
 					MainScreen.initializeScoreScreen();
 					backFunction();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
