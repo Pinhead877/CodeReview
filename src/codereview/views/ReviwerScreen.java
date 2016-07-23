@@ -108,6 +108,29 @@ public class ReviwerScreen extends CR_Composite {
 						new DataHandler().saveReview(seg.getSegId(), starRating.getSelection(), reviewText.getText(),
 								player.getId());
 						MainScreen.updatePlayerPoints(player, Points.POINTS_FOR_CREATING_NEW_REVIEW);
+						int pointsForSegmentWriter = 0;
+						switch(starRating.getSelection()){
+						case 1: 
+							pointsForSegmentWriter = Points.POINTS_SCORE_ONE;
+							break;
+						case 2: 
+							pointsForSegmentWriter = Points.POINTS_SCORE_TWO;
+							break;
+						case 3: 
+							pointsForSegmentWriter = Points.POINTS_SCORE_THREE;
+							break;
+						case 8: 
+							pointsForSegmentWriter = Points.POINTS_SCORE_EIGHT;
+							break;
+						case 9: 
+							pointsForSegmentWriter = Points.POINTS_SCORE_NINE;
+							break;
+						case 10: 
+							pointsForSegmentWriter = Points.POINTS_SCORE_TEN;
+							break;
+						}
+						if(seg.getWriter()==null) seg.setWriter(new DataHandler().getPlayerBySegment(seg));
+						MainScreen.updatePlayerPoints(seg.getWriter(), pointsForSegmentWriter);
 						goBackToMainMenu();
 					}else if(starRating.getSelection()==0){
 						JOptionPane.showMessageDialog(null, "Please set your score for this code.", "Fill all the fields", JOptionPane.ERROR_MESSAGE);
@@ -133,6 +156,7 @@ public class ReviwerScreen extends CR_Composite {
 	protected void goBackToMainMenu() {
 		setVisible(false);
 		MainScreen.initializeReviewsList(Cons.MAIN_MENU_SCREEN);
+		MainScreen.initializeScoreScreen();
 	}
 
 	@Override

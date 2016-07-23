@@ -39,6 +39,10 @@ public class Segment {
 	public Player getWriter() {
 		return writer;
 	}
+	
+	public void setWriter(Player p){
+		this.writer = p;
+	}
 
 //	public Review getReview() {
 //		return review;

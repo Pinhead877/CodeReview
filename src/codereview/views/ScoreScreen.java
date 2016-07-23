@@ -18,7 +18,7 @@ public class ScoreScreen extends CR_Composite {
 	public ScoreScreen(Composite parent, int style, Player player) {
 		super(parent, style);
 
-		int level =((player.getPoints()/10)+1);
+		int level =((player.getPoints()/100)+1);
 
 		Label playerPicLabel = new Label(this, SWT.NONE);
 		playerPicLabel.setAlignment(SWT.CENTER);
@@ -28,6 +28,8 @@ public class ScoreScreen extends CR_Composite {
 		Label levelPic = new Label(this, SWT.NONE);
 		levelPic.setAlignment(SWT.CENTER);
 		try{
+			if(level>10)
+				throw new Exception("Level is very high for this Demo!");
 			levelPic.setImage(SWTResourceManager.getImage(MainScreen.class, "/codereview/assets/levels/level"+level+".png"));
 		}catch(Exception e){
 			e.printStackTrace();

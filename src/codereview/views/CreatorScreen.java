@@ -70,17 +70,6 @@ public class CreatorScreen extends CR_Composite {
 		segmentIwroteNum.setAlignment(SWT.RIGHT);
 		segmentIwroteNum.setBounds(172, 92, 64, 23);
 		
-		Label qualitysIWroteLabel = new Label(this, SWT.NONE);
-		qualitysIWroteLabel.setText("Quality I Wrote:");
-		qualitysIWroteLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
-		qualitysIWroteLabel.setBounds(10, 121, 156, 23);
-		
-		Label qualitysIWroteNum = new Label(this, SWT.NONE);
-		qualitysIWroteNum.setText("TEXT");
-		qualitysIWroteNum.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
-		qualitysIWroteNum.setAlignment(SWT.RIGHT);
-		qualitysIWroteNum.setBounds(172, 121, 64, 23);
-		
 		Label MyReviewsLabel = new Label(this, SWT.BORDER);
 		MyReviewsLabel.setText("My Reviews");
 		MyReviewsLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));

@@ -72,7 +72,7 @@ public class Player implements Comparable<Player>{
 		return points;
 	}
 	public void addPoints(int points) {
-		this.points += points;
+		this.points = ((this.points+points)<0)?0:(this.points+points);
 	}
 	public String getImagePath() {
 		return imagePath;

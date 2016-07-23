@@ -461,4 +461,15 @@ public class DataHandler {
 		connect.createStatement().executeUpdate(query);
 		connect.close();
 	}
+	
+	public Player getPlayerBySegment(Segment seg) throws Exception{
+		connect();
+		String querySegment = "SELECT player_id FROM segments WHERE s_id="+seg.getSegId();
+		ResultSet resultSegment = connect.createStatement().executeQuery(querySegment);
+		if(!resultSegment.first()) return null;
+		String queryPlayer = "SELECT p_id, p_name, p_points FROM players WHERE p_id="+resultSegment.getInt(1);
+		ResultSet resultPlayer = connect.createStatement().executeQuery(queryPlayer);
+		if(!resultPlayer.first()) return null;
+		return new Player(resultPlayer.getInt(1), resultPlayer.getString(2), resultPlayer.getInt(3));
+	}
 }

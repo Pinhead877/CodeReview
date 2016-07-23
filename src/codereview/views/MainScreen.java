@@ -93,6 +93,10 @@ public class MainScreen extends ViewPart {
 	}
 
 	public static void initializeScoreScreen() {
+		if(scoreScreen!=null){
+			scoreScreen.setVisible(false);
+			scoreScreen = null;
+		}
 		scoreScreen = new ScoreScreen(mainScreen, SWT.NONE, player);
 		scoreScreen.setBounds(0, 0, 594, 167);
 		scoreScreen.setVisible(true);

@@ -18,6 +18,7 @@ import codereview.data.DataHandler;
 public class HallOfFame extends Composite {
 	
 	private static final int NUM_LABEL_SIZE = 30;
+	private static final int NUM_LABEL_WIDTH = 35;
 	private static final int NAME_LABEL_WIDTH = 150;
 	private static final int NAME_LABEL_HEIGHT = 30;
 	private static final int GAP = 3;
@@ -76,7 +77,7 @@ public class HallOfFame extends Composite {
 				pointsLabels[i] = new Label(this, SWT.NONE);
 				pointsLabels[i].setAlignment(SWT.RIGHT);
 				pointsLabels[i].setFont(SWTResourceManager.getFont("Microsoft JhengHei UI", 14, fontStyle));
-				pointsLabels[i].setBounds(NAME_START.x+NAME_LABEL_WIDTH+GAP,y, NUM_LABEL_SIZE, NUM_LABEL_SIZE);
+				pointsLabels[i].setBounds(NAME_START.x+NAME_LABEL_WIDTH+GAP,y, NUM_LABEL_WIDTH, NUM_LABEL_SIZE);
 				try {
 						nameLabels[i].setText(players.get(i).getName()+"");
 						pointsLabels[i].setText(players.get(i).getPoints()+"");

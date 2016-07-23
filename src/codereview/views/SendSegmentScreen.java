@@ -63,18 +63,20 @@ public class SendSegmentScreen extends CR_Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
-					if(!codeTextInput.getText().equals("")){
+					if(codeTextInput.getText().equals("")){
+						JOptionPane.showMessageDialog(null, "No code selected!", "Error", JOptionPane.ERROR_MESSAGE);
+					}else if(commentsTextInput.getText().equals("")){
+						JOptionPane.showMessageDialog(null, "Comment is required!", "Error", JOptionPane.ERROR_MESSAGE);
+					}else{
 						MainScreen.handler.sendSegment(MainScreen.getPlayer(), codeTextInput.getText(), commentsTextInput.getText());
 						MainScreen.updatePlayerPoints(player, Points.POINTS_FOR_CREATING_NEW_SEGMENT);
 						setVisible(false);
 						MainScreen.initializeScoreScreen();
 						MainScreen.initializeCreatorScreen();
-					}else{
-						JOptionPane.showMessageDialog(null, "No code selected!", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "No reviwers found!", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Our slave bots are on strike! Contact an Administrator", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

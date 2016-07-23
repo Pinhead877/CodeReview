@@ -49,6 +49,8 @@ public class SegmentReviewView extends CR_Composite{
 				if(new DataHandler().checkIfSegmentHasReviews(seg)){
 					rev = new Review(-2,seg, "Multiple Reviews!\nDouble Click here to see all reviews.", 0, false);
 					rev.setScore(new DataHandler().getAvgScoreOfSeg(seg));
+				}else{
+					rev = new Review(-1,seg,"No reviews yet...",0,false);
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -58,7 +60,7 @@ public class SegmentReviewView extends CR_Composite{
 
 		segment = seg;
 		review = rev;
-		
+
 		System.out.println(review);
 
 		Label headerLbl = new Label(this, SWT.BORDER);
