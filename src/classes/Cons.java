@@ -2,7 +2,7 @@ package classes;
 
 public final class Cons {
 	
-	public static final String PATH_TO_SERVER = "localhost";
+	public static final String PATH_TO_SERVER = "46.121.82.100";
 	
 	public static final int MAINMENU = 1;
 	public static final int CREATOR = 2;
