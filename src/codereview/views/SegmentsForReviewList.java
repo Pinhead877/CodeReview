@@ -17,10 +17,14 @@ import org.eclipse.swt.widgets.Listener;
 public class SegmentsForReviewList extends Composite {
 	
 	Segment[] segments;
+	private int lastScreen;
+	private List list;
 
-	public SegmentsForReviewList(Composite parent, int style, Player player, int lastScreen) {
+	public SegmentsForReviewList(Composite parent, int style, Player player, int lastScrn) {
 		super(parent, style);
-
+		
+		this.lastScreen = lastScrn;
+		
 		Label lblSegmentsList = new Label(this, SWT.BORDER);
 		lblSegmentsList.setText("Segments List");
 		lblSegmentsList.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
@@ -55,7 +59,7 @@ public class SegmentsForReviewList extends Composite {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List list = new List(this, SWT.BORDER | SWT.V_SCROLL);
+		list = new List(this, SWT.BORDER | SWT.V_SCROLL);
 		list.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		list.setBounds(10, 107, 225, 251);
 		if(segments==null){

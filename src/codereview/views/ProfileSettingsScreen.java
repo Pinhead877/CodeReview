@@ -24,16 +24,17 @@ public class ProfileSettingsScreen extends Composite {
 	private Text nameInput;
 	private Text passInput;
 	private String [] files = {"Batman", "Beard", "Beard2", "Bob", "Cat", "Cat2", "Coockie", "Default", "Devil", "Dog", "Dragon", "Fallout", "Garfield", "Happy", "Homer", "Old", "Wolf"};
-
+	private Player player;
+	private ToolItem item;
 	/**
 	 * Create the composite.
 	 * @param parent
 	 * @param style
 	 * @param player 
 	 */
-	public ProfileSettingsScreen(Composite parent, int style, Player player) {
+	public ProfileSettingsScreen(Composite parent, int style, Player ply) {
 		super(parent, style);
-
+		this.player = ply;
 		Label screenLogo = new Label(this, SWT.BORDER);
 		screenLogo.setText("Profile Settings");
 		screenLogo.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
@@ -80,7 +81,7 @@ public class ProfileSettingsScreen extends Composite {
 		ToolBar toolBar = new ToolBar(grpPickAnAvatar, SWT.VERTICAL);
 		toolBar.setBounds(10, 17, 205, 35);
 
-		ToolItem item = new ToolItem(toolBar, SWT.DROP_DOWN);
+		item = new ToolItem(toolBar, SWT.DROP_DOWN);
 		item.setText(player.getImagePath());
 		item.setWidth(100);
 

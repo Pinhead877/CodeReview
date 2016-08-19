@@ -25,10 +25,13 @@ import codereview.viewsoverride.CR_Composite;
 public class SendSegmentScreen extends CR_Composite {
 	private Text codeTextInput;
 	private Text commentsTextInput;
+	private Player player;
 
-	public SendSegmentScreen(Composite parent, int style, Player player) {
+	public SendSegmentScreen(Composite parent, int style, Player pl) {
 		super(parent, style);
-
+		
+		this.player = pl;
+		
 		ScrolledComposite CodeScrolledComposite = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL);
 		CodeScrolledComposite.setBounds(10, 68, 226, 163);
 		CodeScrolledComposite.setExpandHorizontal(true);

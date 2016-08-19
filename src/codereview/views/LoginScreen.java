@@ -32,7 +32,7 @@ public class LoginScreen extends Composite {
 		logoLabel.setBounds(10, 10, 235, 102);
 		logoLabel.setText("\r\nCode Review");
 		
-		Label explainLabel = new Label(this, SWT.WRAP);
+		final Label explainLabel = new Label(this, SWT.WRAP);
 		explainLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		explainLabel.setBounds(10, 118, 235, 43);
 		explainLabel.setText("Login with user mail and the password you recieved.");

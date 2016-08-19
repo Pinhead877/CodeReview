@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Listener;
 public class SegmetsWroteList extends Composite {
 	
 	Segment[] segments;
+	private List list;
 
 	public SegmetsWroteList(Composite parent, int style, Player player) {
 		super(parent, style);
@@ -51,7 +52,7 @@ public class SegmetsWroteList extends Composite {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List list = new List(this, SWT.BORDER | SWT.V_SCROLL);
+		list = new List(this, SWT.BORDER | SWT.V_SCROLL);
 		list.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		list.setBounds(10, 107, 225, 251);
 		if(segments==null){

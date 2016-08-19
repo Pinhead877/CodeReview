@@ -322,7 +322,7 @@ public class DataHandler {
 	public ArrayList<Player> getAllPlayers() throws Exception {
 		connect();
 		ArrayList<Player> temp = new ArrayList<Player>();
-		String query = "SELECT * FROM players;";
+		String query = "SELECT * FROM players ORDER BY p_points;";
 		ResultSet result = connect.createStatement().executeQuery(query);
 		while (result.next()) {
 			temp.add(new Player(result.getInt(1), result.getString(2), result.getInt(3)));

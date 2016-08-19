@@ -30,11 +30,11 @@ import codereview.viewsoverride.CR_Composite;
 
 public class MainMenu extends CR_Composite{
 	private Text text;
-
+	private Label logout;
 	public MainMenu(Composite parent, int style, Player player) {
 		super(parent, style);
 
-		Label logout = new Label(this, SWT.NONE);
+		logout = new Label(this, SWT.NONE);
 		logout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {

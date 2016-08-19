@@ -31,7 +31,8 @@ public class ReviwerScreen extends CR_Composite {
 	private Text codeText;
 	private Text reviewText;
 	private StarRating starRating;
-
+	private Player player;
+private Segment seg;
 	/**
 	 * Create the composite.
 	 * 
@@ -39,9 +40,11 @@ public class ReviwerScreen extends CR_Composite {
 	 * @param style
 	 * @param player
 	 */
-	public ReviwerScreen(Composite parent, int style, Player player, Segment seg) {
+	public ReviwerScreen(Composite parent, int style, Player plyr, Segment sg) {
 		super(parent, style);
-
+		this.seg = sg;
+		this.player = plyr;
+		
 		Label reviewLogoLbl = new Label(this, SWT.BORDER);
 		reviewLogoLbl.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 		reviewLogoLbl.setAlignment(SWT.CENTER);

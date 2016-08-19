@@ -63,7 +63,6 @@ public class HallOfFame extends Composite {
 		
 		try {
 			ArrayList<Player> players = new DataHandler().getAllPlayers();
-			players.sort(null);
 			y = NAME_START.y;
 			for(int i=0;i<nameLabels.length;i++){
 				nameLabels[i] = new Label(this, SWT.NONE);

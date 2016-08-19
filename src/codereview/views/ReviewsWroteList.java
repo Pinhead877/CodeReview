@@ -17,7 +17,8 @@ import codereview.viewsoverride.CR_Composite;
 public class ReviewsWroteList extends CR_Composite {
 
 	Review [] reviews;
-	
+	private List list;
+
 	public ReviewsWroteList(Composite parent, int style, Player player) {
 		super(parent, style);
 
@@ -25,7 +26,7 @@ public class ReviewsWroteList extends CR_Composite {
 		explainTextLbl.setText("Explaination about what to do...");
 		explainTextLbl.setBounds(10, 46, 225, 55);
 
-		List list = new List(this, SWT.BORDER | SWT.V_SCROLL);
+		list = new List(this, SWT.BORDER | SWT.V_SCROLL);
 		list.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		list.setBounds(10, 107, 225, 251);
 		reviews = null;

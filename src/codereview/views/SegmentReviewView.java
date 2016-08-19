@@ -30,9 +30,11 @@ public class SegmentReviewView extends CR_Composite{
 	private String screenName;
 	private Segment segment;
 	private Review review;
-
-	public SegmentReviewView(Composite parent, int style, Segment seg, Review rev, int screen, int lastScreen) {
+	private int lastScreen;
+	public SegmentReviewView(Composite parent, int style, Segment seg, Review rev, int screen, int lastScrn) {
 		super(parent, style);
+		
+		this.lastScreen = lastScrn;
 		switch(screen){
 		case 1: 
 			screenName = "Review";
